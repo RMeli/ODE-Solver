@@ -1,6 +1,6 @@
 #include "RungeKutta4.h"
 
-RungeKutta4::RungeKutta4(double (*ODE_)(double,double), double dx_ = 1.e-3)
+RungeKutta4::RungeKutta4(double (*ODE_)(double,double), double dx_)
 : Integrator(ODE_,dx_)
 {}
 

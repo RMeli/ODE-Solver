@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "RungeKutta4.h"
+#include "RungeKutta2.h"
 #include "testfunction.h"
 
 int main()
@@ -8,7 +8,7 @@ int main()
     double xmax(5);
     double dx(0.5);
     
-    RungeKutta4 RK4(f,dx);
+    RungeKutta2 RK2(f,dx);
     
     double xn(0);
     double yn(1);
@@ -17,7 +17,7 @@ int main()
     {
         std::cout << xn << ' ' << yn << std::endl;
         
-        yn = RK4.step(xn,yn);
+        yn = RK2.step(xn,yn);
         xn += dx;
     }
     

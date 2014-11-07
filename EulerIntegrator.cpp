@@ -1,6 +1,6 @@
 #include "EulerIntegrator.h"
 
-EulerIntegrator::EulerIntegrator(double (*ODE_)(double,double), double dx_ = 1.e-3)
+EulerIntegrator::EulerIntegrator(double (*ODE_)(double,double), double dx_)
 : Integrator(ODE_,dx_)
 {}
 

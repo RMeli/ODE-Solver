@@ -1,32 +1,14 @@
 #include <iostream>
 
 #include "EulerIntegrator.h"
-
-// Differential equation y' = f(x,y) = y
-double f(double x, double y)
-{
-    return y;
-}
-
-// Differential equation y' = g(x,y) = -y
-double g(double x, double y)
-{
-    return -y;
-}
-
-// Differential equation y' = g(x,y) = -xy
-double h(double x, double y)
-{
-    return -x*x*y+1/y;
-}
-
+#include "testfunction.h"
 
 int main()
 {
     double xmax(5);
     double dx(0.5);
     
-    EulerIntegrator E(h,dx);
+    EulerIntegrator E(f,dx);
     
     double xn(0);
     double yn(1);
