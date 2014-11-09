@@ -10,7 +10,12 @@ class Integrator
 public:
     Integrator(double (*ODE_)(double,double), double dx_);
     
+    double get_dx() const;
+    
     virtual double step(double xn, double yn) const = 0;
+    
+    virtual ~Integrator();
+    
 protected:
     double (*ODE)(double,double);
     double dx;

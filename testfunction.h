@@ -3,7 +3,7 @@
 
 double f(double x, double y)
 {
-    return y;
+    return -y;
 }
 
 #endif
