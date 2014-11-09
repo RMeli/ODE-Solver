@@ -3,8 +3,8 @@
 #include <cmath>
 #include <stdexcept>
 
-NewtonMethod::NewtonMethod(double (*fxy_)(double,double), double (*dyfxy_)(double,double), double y0_, double x_, double tol_)
-: fxy(fxy_), dyfxy(dyfxy_), y0(y0_), x(x_), tol(tol_)
+NewtonMethod::NewtonMethod(double (*fxy_)(double,double), double (*dyfxy_)(double,double), double y0_, double x_, double tol_, int maxiter_)
+: fxy(fxy_), dyfxy(dyfxy_), y0(y0_), x(x_), tol(tol_), maxiter(maxiter_)
 {}
 
 double NewtonMethod::solve() const
@@ -14,7 +14,14 @@ double NewtonMethod::solve() const
     
     double derivative(0);
     
+    double iter(0);
+    
     do {
+        if (iter > maxiter)
+        {
+            throw std::overflow_error("Maximum iterations reached. Convergence not reached.");
+        }
+        
         yold = ynew;
         
         derivative = dyfxy(x,yold);
@@ -25,6 +32,8 @@ double NewtonMethod::solve() const
         }
         
         ynew = yold - fxy(x,yold) / derivative;
+        
+        iter++;
         
     } while( std::abs(ynew-yold) > tol );
     

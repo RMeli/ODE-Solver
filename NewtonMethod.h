@@ -11,7 +11,7 @@
 class NewtonMethod
 {
 public:
-    NewtonMethod(double (*fxy_)(double,double), double (*dyfxy_)(double,double), double y0_, double x_, double tol_ = 1e-6);
+    NewtonMethod(double (*fxy_)(double,double), double (*dyfxy_)(double,double), double y0_, double x_, double tol_ = 1e-6, int maxiter_ = 1000);
     
     double solve() const;
 
@@ -21,6 +21,7 @@ private:
     double y0;
     double x;
     double tol;
+    int maxiter;
 };
 
 #endif

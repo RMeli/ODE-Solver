@@ -14,7 +14,7 @@ double df(double x, double y)
 
 int main()
 {
-    NewtonMethod NM(f,df,1.,0.);
+    NewtonMethod NM(f,df,1.,0.,1e-6);
     
     std::cout << NM.solve() << std::endl;
     
