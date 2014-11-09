@@ -5,7 +5,7 @@ CXXFLAGS= -std=c++11 -Wall -O3
 
 all: TESTS
 
-TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver
+TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod
 
 ###############
 # EXECUTABLES #
@@ -18,6 +18,8 @@ TEST_RungeKutta2: TEST_RungeKutta2.o Integrator.o RungeKutta2.o
 TEST_RungeKutta4: TEST_RungeKutta4.o Integrator.o RungeKutta4.o
 
 TEST_Solver: TEST_Solver.o Solver.o Integrator.o EulerIntegrator.o RungeKutta2.o RungeKutta4.o
+
+TEST_NewtonMethod: TEST_NewtonMethod.o NewtonMethod.o
 
 ################
 # OBJECT FILES #
@@ -33,6 +35,8 @@ TEST_RungeKutta4.o: TEST_RungeKutta4.cpp RungeKutta4.h
 
 TEST_Solver.o: TEST_Solver.cpp Solver.h EulerIntegrator.h RungeKutta2.h RungeKutta4.h
 
+TEST_NewtonMethod.o: TEST_NewtonMethod.cpp NewtonMethod.h
+
 # Explicit
 
 Integrator.o: Integrator.cpp Integrator.h
@@ -47,8 +51,10 @@ RungeKutta4.o: RungeKutta4.cpp RungeKutta4.h Integrator.h
 
 Solver.o: Solver.cpp Solver.h Integrator.h
 
+NewtonMethod.o: NewtonMethod.cpp NewtonMethod.h
+
 clean:
 	rm -f *.o
 	
 cleanall:
-	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver
+	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod

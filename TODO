@@ -14,4 +14,3 @@ Object FUNCTION to pas the function and eventually the derivative
 Solver robustness: check the given interval Solver: virtual
 	destructor in case of derivation
 
-
