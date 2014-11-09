@@ -11,9 +11,11 @@
 class NewtonMethod
 {
 public:
-    NewtonMethod(double (*fxy_)(double,double), double (*dyfxy_)(double,double), double y0_, double x_, double tol_ = 1e-6, int maxiter_ = 1000);
+    NewtonMethod(double y0_, double x_, double (*fxy_)(double,double) = nullptr, double (*dyfxy_)(double,double) = nullptr, double tol_ = 1e-6, int maxiter_ = 1000);
     
     double solve() const;
+    
+    void set_function(double (*f)(double,double), double (*df)(double,double));
 
 private:
     double (*fxy)(double,double);

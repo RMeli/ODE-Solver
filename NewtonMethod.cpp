@@ -1,14 +1,21 @@
 #include "NewtonMethod.h"
 
+#include "Exception.h"
+
 #include <cmath>
 #include <stdexcept>
 
-NewtonMethod::NewtonMethod(double (*fxy_)(double,double), double (*dyfxy_)(double,double), double y0_, double x_, double tol_, int maxiter_)
+NewtonMethod::NewtonMethod(double y0_, double x_, double (*fxy_)(double,double), double (*dyfxy_)(double,double), double tol_, int maxiter_)
 : fxy(fxy_), dyfxy(dyfxy_), y0(y0_), x(x_), tol(tol_), maxiter(maxiter_)
 {}
 
 double NewtonMethod::solve() const
 {
+    if (fxy == nullptr or dyfxy == nullptr)
+    {
+        throw Undefined();
+    }
+    
     double yold(y0);
     double ynew(y0);
     
@@ -38,4 +45,11 @@ double NewtonMethod::solve() const
     } while( std::abs(ynew-yold) > tol );
     
     return ynew;
+}
+
+void NewtonMethod::set_function(double (*f)(double,double), double (*df)(double,double))
+{
+    fxy = f;
+    dyfxy = df;
+    
 }
