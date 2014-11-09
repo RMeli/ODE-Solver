@@ -5,7 +5,7 @@ CXXFLAGS= -std=c++11 -Wall -O3
 
 all: TESTS
 
-TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod
+TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler
 
 ###############
 # EXECUTABLES #
@@ -20,6 +20,8 @@ TEST_RungeKutta4: TEST_RungeKutta4.o Integrator.o RungeKutta4.o
 TEST_Solver: TEST_Solver.o Solver.o Integrator.o EulerIntegrator.o RungeKutta2.o RungeKutta4.o
 
 TEST_NewtonMethod: TEST_NewtonMethod.o NewtonMethod.o
+
+TEST_ImplicitEuler: TEST_ImplicitEuler.o ImplicitEuler.o ImplicitIntegrator.o NewtonMethod.o
 
 ################
 # OBJECT FILES #
@@ -37,11 +39,17 @@ TEST_Solver.o: TEST_Solver.cpp Solver.h EulerIntegrator.h RungeKutta2.h RungeKut
 
 TEST_NewtonMethod.o: TEST_NewtonMethod.cpp NewtonMethod.h
 
+TEST_ImplicitEuler.o: TEST_ImplicitEuler.cpp ImplicitEuler.h
+
 # Explicit
 
 Integrator.o: Integrator.cpp Integrator.h
 
+ImplicitIntegrator.o: ImplicitIntegrator.cpp ImplicitIntegrator.h
+
 EulerIntegrator.o: EulerIntegrator.cpp EulerIntegrator.h Integrator.h
+
+ImplicitEuler.o: ImplicitEuler.cpp ImplicitEuler.h ImplicitIntegrator.h
 
 RungeKutta2.o: RungeKutta2.cpp RungeKutta2.h Integrator.h
 

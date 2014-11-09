@@ -5,13 +5,13 @@
 #include <cmath>
 #include <stdexcept>
 
-NewtonMethod::NewtonMethod(double y0_, double x_, double (*fxy_)(double,double), double (*dyfxy_)(double,double), double tol_, int maxiter_)
-: fxy(fxy_), dyfxy(dyfxy_), y0(y0_), x(x_), tol(tol_), maxiter(maxiter_)
+NewtonMethod::NewtonMethod(double y0_, double (*f_)(double), double (*df_)(double), double tol_, int maxiter_)
+: f(f_), df(df_), y0(y0_), tol(tol_), maxiter(maxiter_)
 {}
 
 double NewtonMethod::solve() const
 {
-    if (fxy == nullptr or dyfxy == nullptr)
+    if (f == nullptr or df == nullptr)
     {
         throw Undefined();
     }
@@ -31,14 +31,14 @@ double NewtonMethod::solve() const
         
         yold = ynew;
         
-        derivative = dyfxy(x,yold);
+        derivative = df(yold);
         
         if ( std::abs(derivative) < 1e-12 )
         {
             throw std::overflow_error("Divide by zero exception.");
         }
         
-        ynew = yold - fxy(x,yold) / derivative;
+        ynew = yold - f(yold) / derivative;
         
         iter++;
         
@@ -47,19 +47,11 @@ double NewtonMethod::solve() const
     return ynew;
 }
 
-void NewtonMethod::set_function(double (*f)(double,double), double (*df)(double,double))
+void NewtonMethod::set(double y0_, double (*f_)(double), double (*df_)(double), double tol_, int maxiter_)
 {
-    fxy = f;
-    dyfxy = df;
-    
-}
-
-void NewtonMethod::set_tol(double tol_)
-{
+    y0 = y0_;
+    f = f_;
+    df = df_;
     tol = tol_;
-}
-
-void NewtonMethod::set_maxiter(int maxiter_)
-{
     maxiter = maxiter_;
 }

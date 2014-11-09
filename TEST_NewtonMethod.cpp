@@ -2,34 +2,36 @@
 
 #include <iostream>
 
-double f(double x, double y) // The solution f(x,y) = 0 is sqrt(2).
+double f(double y) // The solution f(y) = 0 is sqrt(2).
 {
     return y*y - 2;
 }
 
-double df(double x, double y)
+double df(double y)
 {
     return 2*y;
 }
 
-double g(double x, double y) // The solution f(x,y) = 0 is sqrt(3).
+double g(double y) // The solution f(y) = 0 is sqrt(3).
 {
     return y*y - 3;
 }
 
-double dg(double x, double y)
+double dg(double y)
 {
     return 2*y;
 }
 
 int main()
 {
-    NewtonMethod NM(1.,0.,f,df);
+    double y0(1);
+    
+    NewtonMethod NM(y0,f,df);
     
     std::cout << NM.solve() << std::endl;
     
     // Change the function to solve
-    NM.set_function(g,dg);
+    NM.set(y0,g,dg);
     
     std::cout << NM.solve() << std::endl;
     
