@@ -1,0 +1,10 @@
+%%%%%%%%%
+%GENERAL%
+%%%%%%%%%
+Add iterators instead of for cycles
+
+%%%%%%%%
+%SOLVER%
+%%%%%%%%
+Solver robustness: check the given interval
+Solver: virtual destructor in case of derivation
