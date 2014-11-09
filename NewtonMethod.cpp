@@ -53,3 +53,13 @@ void NewtonMethod::set_function(double (*f)(double,double), double (*df)(double,
     dyfxy = df;
     
 }
+
+void NewtonMethod::set_tol(double tol_)
+{
+    tol = tol_;
+}
+
+void NewtonMethod::set_maxiter(int maxiter_)
+{
+    maxiter = maxiter_;
+}
