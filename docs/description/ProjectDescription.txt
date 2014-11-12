@@ -1,0 +1,41 @@
+#######################
+# PROJECT DESCRIPTION #
+#######################
+The aim of this project is to develop a series of classes (basically a library) that allows the solution of scalar ODEs (with a general nonlinear function). ODEs will be of the type
+	y' = f(x,y)
+where y' denote the derivative of y with respect to x. Higher-order ODEs are considered vectorial problems, as any N-order scalar ODE can be transformed into a system of N first-order ODEs.
+
+#####################
+# NUMERICAL METHODS #
+#####################
+The library will contain both explicit and implicit methods.
+
+The explicit method provided are:
+	- Explicit Euler
+	- 2nd order Runge-Kutta
+	- 4th order Runge-Kutta
+	
+The implicit methods provided are:
+	- Implicit Euler
+	- [...]
+	
+In addition the library contains the following utilities, that are used by the ODEs solvers:
+	- Newton Method
+	
+#############
+# STRUCTURE #
+#############
+Explicit and implicit methods are (up to now) considered as two separate entities.
+
+All explicit methods derive from Integrator class, which store the function to integrate and the step length. This class is pure virtual as the function that performs the integration step will be defined in derived classes (the explicit methods).
+
+A Solver class will apply an Integrator to the problem. The problem is a Cauchy problem, defined by
+	y' = f(x,y)
+	y(x0) = y0
+The interval [x0,xN] and the initial value y0 are member of the Solver class, that also own a pointer to an Integrator. The Integrator is applied sequentially to the problem in order to obtain the complete solution over [x0,xN]. The solution (xn,yn) is stored as a two-element std::array inside a std::vector.
+
+The same structure will be applied to explicit methods. In this case we need to solve a nonlinear equation at each step, therefore the ImplicitIntegrator class also contain a NewtonMethod class that can solve the nonlinear problem. In order to use the NewtonMethod, we also need to know the derivative of the function f(x,y) with respect to y.
+
+#################
+#  #
+#################
