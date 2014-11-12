@@ -9,9 +9,10 @@ double ImplicitEuler::step(double xn, double yn)
     xnew = xn + dx;
     yold = yn;
     
-    NM.set(yold,NLF,dNLF);
+    //NM.set(yold,NLF,dNLF);
     
-    return NM.solve();
+    //return NM.solve();
+    return 0;
 }
 
 double ImplicitEuler::NLF(double yn) const

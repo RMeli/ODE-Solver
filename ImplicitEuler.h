@@ -10,6 +10,7 @@ public:
     
     double step(double xn, double yn);
     
+private:
     double NLF(double) const;
     double dNLF(double) const;
 };

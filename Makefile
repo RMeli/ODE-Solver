@@ -5,7 +5,7 @@ CXXFLAGS= -std=c++11 -Wall -O3
 
 all: TESTS
 
-TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler
+TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function
 
 ###############
 # EXECUTABLES #
@@ -22,6 +22,8 @@ TEST_Solver: TEST_Solver.o Solver.o Integrator.o EulerIntegrator.o RungeKutta2.o
 TEST_NewtonMethod: TEST_NewtonMethod.o NewtonMethod.o
 
 TEST_ImplicitEuler: TEST_ImplicitEuler.o ImplicitEuler.o ImplicitIntegrator.o NewtonMethod.o
+
+TEST_Function: TEST_Function.o
 
 ################
 # OBJECT FILES #
@@ -40,6 +42,8 @@ TEST_Solver.o: TEST_Solver.cpp Solver.h EulerIntegrator.h RungeKutta2.h RungeKut
 TEST_NewtonMethod.o: TEST_NewtonMethod.cpp NewtonMethod.h
 
 TEST_ImplicitEuler.o: TEST_ImplicitEuler.cpp ImplicitEuler.h
+
+TEST_Function.o: TEST_Function.cpp Function.h
 
 # Explicit
 
