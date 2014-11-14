@@ -22,6 +22,14 @@ The implicit methods provided are:
 In addition the library contains the following utilities, that are used by the ODEs solvers:
 	- Newton Method
 	
+############
+# ANALYSIS #
+############
+It is useful to study the performance of a different ODE solver in order to decide which one to use to solve a given problem (performance, accuracy, ...). Some analysis tools are provided with the library in order to facilitate the task.
+
+(TO BE DEFINED BIT CETRAINELY A CLASS THAT COMPARE NUMERICAL SOLUTION WITH ANALYTICAL ONE AND COMPUTE THE ERRORS, MAYBE PLOTTING FACILITY THAT PROVIDE GNUPLOT SCRIPTS)
+
+
 #############
 # STRUCTURE #
 #############
@@ -36,6 +44,8 @@ The interval [x0,xN] and the initial value y0 are member of the Solver class, th
 
 The same structure will be applied to explicit methods. In this case we need to solve a nonlinear equation at each step, therefore the ImplicitIntegrator class also contain a NewtonMethod class that can solve the nonlinear problem. In order to use the NewtonMethod, we also need to know the derivative of the function f(x,y) with respect to y.
 
-#################
-#  #
-#################
+###############
+# LIMITATIONS #
+###############
+Additional utilities of the library are specifically designed to be used by ODEs integrators and/or solvers, and therefore can result cumbersome sometimes. Despite this a big effort is done in order to give the possibility of using this methods outside the provided classes.
+The Newton method need an object of type Function, that is a pure virtual class. This imply that a derived class where the function f and its derivative df are defined and pass a pointer to this new class to the Newton method. 
