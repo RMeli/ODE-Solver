@@ -7,7 +7,7 @@ int main()
 {
     double xmax(5);
     
-    double dx(0.05);
+    double dx(0.5);
     double xn(0);
     double yn(1);
     

@@ -2,6 +2,7 @@
 #define IMPLICITEULER_H
 
 #include "ImplicitIntegrator.h"
+#include "Function.h"
 
 class ImplicitEuler : public ImplicitIntegrator
 {

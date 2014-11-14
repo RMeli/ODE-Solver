@@ -17,7 +17,8 @@ The explicit method provided are:
 	
 The implicit methods provided are:
 	- Implicit Euler
-	- [...]
+	- Implicit Midpoint
+	- Implicit Trapezoidal
 	
 In addition the library contains the following utilities, that are used by the ODEs solvers:
 	- Newton Method

@@ -1,8 +1,6 @@
 #ifndef IMPLICITINTEGRATOR_H
 #define IMPLICITINTEGRATOR_H
 
-#include "NewtonMethod.h"
-
 //! ImplicitIntegrator class.
 /*!
  ImplicitIntegrator class is a virtual class that compute an integration step (virtual function) for a given ODE (function pointer) of lenght step dx,
