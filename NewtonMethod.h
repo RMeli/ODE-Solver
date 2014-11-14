@@ -1,6 +1,8 @@
 #ifndef NEWTONMETHOD_H
 #define NEWTONMETHOD_H
 
+#include "Function.h"
+
 //! NewtonMethod class.
 /*!
  NewtonMethod class solve the equation f(x,y) = 0 with respect to y, i.e. find y such that f(x,y) = 0.
@@ -11,15 +13,14 @@
 class NewtonMethod
 {
 public:
-    NewtonMethod(double y0_ = 0, double (*f_)(double) = nullptr, double (*df_)(double) = nullptr, double tol_ = 1e-6, int maxiter_ = 1000);
+    NewtonMethod(double y0_, Function* F, double tol_ = 1e-6, int maxiter_ = 1000);
     
     double solve() const;
     
-    void set(double y0_, double (*f_)(double), double (*df_)(double), double tol_ = 1e-6, int maxiter_ = 1000);
+    void set(double y0_, Function* F, double tol_ = 1e-6, int maxiter_ = 1000);
 
 private:
-    double (*f)(double);
-    double (*df)(double);
+    Function* F;
     double y0;
     double tol;
     int maxiter;
