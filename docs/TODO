@@ -1,0 +1,18 @@
+%%%%%%%%%
+%GENERAL%
+%%%%%%%%%
+Add iterators instead of for cycles
+
+Object FUNCTION to pas the function and eventually the derivative
+	(instead of pointers to function): more complex for the user as
+	he must specify a class
+
+
+%%%%%%%%
+%SOLVER%
+%%%%%%%%
+Solver robustness: check the given interval Solver: virtual
+	destructor in case of derivation
+	
+Solver and Implicit solver differs only for the type of integrator. They can consequently be merged if a pure virtual class Integrator is created
+
