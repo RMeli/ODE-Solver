@@ -11,8 +11,19 @@ public:
     double step(double xn, double yn);
     
 private:
-    double NLF(double) const;
-    double dNLF(double) const;
+    class IEFunction : public Function
+    {
+    public:
+        IEFunction(ImplicitEuler*);
+        
+        double f(double);
+        double df(double);
+        
+    private:
+        ImplicitEuler* IE;
+    };
+    
+    IEFunction* IEF;
 };
 
 #endif

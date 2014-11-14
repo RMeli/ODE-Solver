@@ -1,7 +1,8 @@
 #include "ImplicitEuler.h"
+#include "NewtonMethod.h"
 
 ImplicitEuler::ImplicitEuler(double (*ODE_)(double,double), double dx_, double (*dODE_)(double,double))
-: ImplicitIntegrator(ODE_,dx_, dODE_)
+: ImplicitIntegrator(ODE_,dx_, dODE_), IEF(new IEFunction(this))
 {}
 
 double ImplicitEuler::step(double xn, double yn)
@@ -9,18 +10,21 @@ double ImplicitEuler::step(double xn, double yn)
     xnew = xn + dx;
     yold = yn;
     
-    //NM.set(yold,NLF,dNLF);
+    NewtonMethod NM(yold,IEF);
     
-    //return NM.solve();
-    return 0;
+    return NM.solve();
 }
 
-double ImplicitEuler::NLF(double yn) const
+ImplicitEuler::IEFunction::IEFunction(ImplicitEuler* IE_)
+: IE(IE_)
+{}
+
+double ImplicitEuler::IEFunction::f(double yn)
 {
-    return yn - dx * ODE(xnew,yn) - yold;
+    return yn - IE->dx * IE->ODE(IE->xnew,yn) - IE->yold;
 }
 
-double ImplicitEuler::dNLF(double yn) const
+double ImplicitEuler::IEFunction::df(double yn)
 {
-    return 1 - dx * dODE(xnew,yn);
+    return 1 - IE->dx * IE->dODE(IE->xnew,yn);
 }

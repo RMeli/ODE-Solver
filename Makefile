@@ -69,4 +69,4 @@ clean:
 	rm -f *.o
 	
 cleanall:
-	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod
+	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function
