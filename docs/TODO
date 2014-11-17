@@ -16,3 +16,10 @@ Solver robustness: check the given interval Solver: virtual
 	
 Solver and Implicit solver differs only for the type of integrator. They can consequently be merged if a pure virtual class Integrator is created
 
+Think about memory efficiency: storing the wole solution inside the Solver instead of printing it directly can be costly.
+
+%%%%%%%%
+%MEMORY%
+%%%%%%%%
+
+Check that all pointers are followed by a delete (check the classes where the desctructor is not implemented)!
