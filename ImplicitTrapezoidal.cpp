@@ -28,3 +28,8 @@ double ImplicitTrapezoidal::ITFunction::df(double yn)
 {
     return 1 - 0.5 * IT->dx * IT->dODE(IT->xnew,yn);
 }
+
+ImplicitTrapezoidal::~ImplicitTrapezoidal()
+{
+    delete ITF;
+}

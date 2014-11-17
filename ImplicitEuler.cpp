@@ -28,3 +28,8 @@ double ImplicitEuler::IEFunction::df(double yn)
 {
     return 1 - IE->dx * IE->dODE(IE->xnew,yn);
 }
+
+ImplicitEuler::~ImplicitEuler()
+{
+    delete IEF;
+}
