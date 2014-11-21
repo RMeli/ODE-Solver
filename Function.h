@@ -20,6 +20,12 @@ public:
     /*!
      */
     virtual double df(double) = 0;
+    
+    //! Destructor.
+    /*!
+     Destructor is declared virtual.
+     */
+    virtual ~Function() {};
 };
 
 #endif

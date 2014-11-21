@@ -26,7 +26,7 @@ public:
     
     ~Solver();
     
-private:
+protected:
     std::vector<std::array<double,2>> solution;
     double y0;
     double xmin;

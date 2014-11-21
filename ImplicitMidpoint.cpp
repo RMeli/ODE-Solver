@@ -29,7 +29,7 @@ double ImplicitMidpoint::IMFunction::df(double yn)
     return 1 - IM->dx * IM->dODE(IM->xnew, 0.5 * (IM->yold + yn)) * 0.5;
 }
 
-ImplicitMidpoint~ImplicitMidpoint()
+ImplicitMidpoint::~ImplicitMidpoint()
 {
     delete IMF;
 }

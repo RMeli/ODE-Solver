@@ -59,7 +59,7 @@ private:
         /*!
          Derivative of the nonlinear function defining the implicit Euler method (needed by NewtonMethod)
          */
-        double df(double);s
+        double df(double);
         
     private:
         //! Pointer to an ImplicitEuler (class friend) integrator.
