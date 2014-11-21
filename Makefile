@@ -5,7 +5,7 @@ CXXFLAGS= -std=c++11 -Wall -O3
 
 all: TESTS
 
-TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal
+TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver
 
 ###############
 # EXECUTABLES #
@@ -28,6 +28,8 @@ TEST_Function: TEST_Function.o
 TEST_ImplicitMidpoint: TEST_ImplicitMidpoint.o ImplicitIntegrator.o ImplicitMidpoint.o NewtonMethod.o
 
 TEST_ImplicitTrapezoidal: TEST_ImplicitTrapezoidal.o ImplicitIntegrator.o ImplicitTrapezoidal.o NewtonMethod.o
+
+TEST_ImplicitSolver: TEST_ImplicitSolver.o ImplicitSolver.o ImplicitEuler.o ImplicitMidpoint.o ImplicitTrapezoidal.o ImplicitIntegrator.o NewtonMethod.o
 
 ################
 # OBJECT FILES #
@@ -53,6 +55,8 @@ TEST_ImplicitMidpoint.o: TEST_ImplicitMidpoint.cpp ImplicitMidpoint.h
 
 TEST_ImplicitTrapezoidal.o: TEST_ImplicitTrapezoidal.cpp ImplicitTrapezoidal.h
 
+TEST_Solver.o: TEST_ImplicitSolver.cpp ImplicitSolver.h ImplicitEuler.h ImplicitMidpoint.h ImplicitTrapezoidal.h
+
 # Explicit
 
 Integrator.o: Integrator.cpp Integrator.h
@@ -75,10 +79,12 @@ ImplicitTrapezoidal.o: ImplicitTrapezoidal.cpp ImplicitTrapezoidal.h ImplicitInt
 
 Solver.o: Solver.cpp Solver.h Integrator.h
 
+ImplicitSolver.o: ImplicitSolver.cpp ImplicitSolver.h ImplicitIntegrator.h
+
 NewtonMethod.o: NewtonMethod.cpp NewtonMethod.h
 
 clean:
 	rm -f *.o
 	
 cleanall:
-	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal
+	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver

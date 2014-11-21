@@ -21,8 +21,8 @@ int main()
 {
     double y0(1);
     double xmin(0);
-    double xmax(5);
-    double dx(0.5);
+    double xmax(30);
+    double dx(0.05);
     
     Solver ES(y0,xmin,xmax, new EulerIntegrator(f,dx) );
     Solver RK4S(y0,xmin,xmax, new RungeKutta4(f,dx) );

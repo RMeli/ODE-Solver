@@ -1,14 +1,16 @@
 #ifndef TESTFUNCTION_H
 #define TESTFUNCTION_H
 
+#include <cmath>
+
 double f(double x, double y)
 {
-    return -y;
+    return -std::sin(y)*y;
 }
 
 double df(double x, double y)
 {
-    return -1;
+    return -std::cos(y)*y-std::sin(y);
 }
 
 #endif
