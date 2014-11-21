@@ -6,6 +6,8 @@ Add iterators instead of for cycles
 Object FUNCTION to pas the function and eventually the derivative
 	(instead of pointers to function): more complex for the user as
 	he must specify a class
+	
+ADD MORE DELETED FUNCTIONS
 
 
 %%%%%%%%
