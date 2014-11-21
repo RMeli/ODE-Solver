@@ -51,7 +51,7 @@ public:
      */
     ~ImplicitSolver();
     
-private:
+protected:
     //! Solution of the problem.
     /*!
      The solution of the problem is a std::vector containing std::array of couples (xn,yn) that represents the solution yn at point xn.
