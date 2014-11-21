@@ -31,7 +31,7 @@ private:
     double y0;
     double xmin;
     double xmax;
-    Integrator* I_ptr; // Enable polymorphism
+    Integrator* I_ptr;
 };
 
 #endif
