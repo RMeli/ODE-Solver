@@ -5,7 +5,7 @@ CXXFLAGS= -std=c++11 -Wall -O3
 
 all: TESTS
 
-TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver TEST_AnalyticalExplicitSolver
+TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver TEST_AnalyticalExplicitSolver TEST_AnalyticalImplicitSolver
 
 ###############
 # EXECUTABLES #
@@ -32,6 +32,8 @@ TEST_ImplicitTrapezoidal: TEST_ImplicitTrapezoidal.o ImplicitIntegrator.o Implic
 TEST_ImplicitSolver: TEST_ImplicitSolver.o ImplicitSolver.o ImplicitEuler.o ImplicitMidpoint.o ImplicitTrapezoidal.o ImplicitIntegrator.o NewtonMethod.o
 
 TEST_AnalyticalExplicitSolver: TEST_AnalyticalExplicitSolver.o AnalyticalExplicitSolver.o Solver.o Integrator.o EulerIntegrator.o RungeKutta2.o RungeKutta4.o
+
+TEST_AnalyticalImplicitSolver: TEST_AnalyticalImplicitSolver.o AnalyticalImplicitSolver.o ImplicitSolver.o ImplicitEuler.o ImplicitMidpoint.o ImplicitTrapezoidal.o ImplicitIntegrator.o NewtonMethod.o
 
 ################
 # OBJECT FILES #
@@ -61,6 +63,8 @@ TEST_ImplicitSolver.o: TEST_ImplicitSolver.cpp ImplicitSolver.h ImplicitEuler.h 
 
 TEST_AnalyticalExplicitSolver.o: TEST_AnalyticalExplicitSolver.cpp Solver.h EulerIntegrator.h RungeKutta2.h RungeKutta4.h
 
+TEST_AnalyticalImplicitSolver.o: TEST_AnalyticalImplicitSolver.cpp ImplicitSolver.h ImplicitEuler.h ImplicitMidpoint.h ImplicitTrapezoidal.h
+
 # Explicit
 
 Integrator.o: Integrator.cpp Integrator.h
@@ -85,6 +89,8 @@ Solver.o: Solver.cpp Solver.h Integrator.h
 
 AnalyticalExplicitSolver.o: AnalyticalExplicitSolver.cpp AnalyticalExplicitSolver.h
 
+AnalyticalImplicitSolver.o: AnalyticalImplicitSolver.cpp AnalyticalImplicitSolver.h
+
 ImplicitSolver.o: ImplicitSolver.cpp ImplicitSolver.h ImplicitIntegrator.h
 
 NewtonMethod.o: NewtonMethod.cpp NewtonMethod.h
@@ -93,4 +99,4 @@ clean:
 	rm -f *.o
 	
 cleanall:
-	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver TEST_AnalyticalExplicitSolver
+	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver TEST_AnalyticalExplicitSolver TEST_AnalyticalImplicitSolver
