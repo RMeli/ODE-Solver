@@ -5,7 +5,7 @@ CXXFLAGS= -std=c++11 -Wall -O3
 
 all: TESTS
 
-TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver
+TESTS: TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver TEST_AnalyticalExplicitSolver
 
 ###############
 # EXECUTABLES #
@@ -31,6 +31,8 @@ TEST_ImplicitTrapezoidal: TEST_ImplicitTrapezoidal.o ImplicitIntegrator.o Implic
 
 TEST_ImplicitSolver: TEST_ImplicitSolver.o ImplicitSolver.o ImplicitEuler.o ImplicitMidpoint.o ImplicitTrapezoidal.o ImplicitIntegrator.o NewtonMethod.o
 
+TEST_AnalyticalExplicitSolver: TEST_AnalyticalExplicitSolver.o AnalyticalExplicitSolver.o Solver.o Integrator.o EulerIntegrator.o RungeKutta2.o RungeKutta4.o
+
 ################
 # OBJECT FILES #
 ################
@@ -55,7 +57,9 @@ TEST_ImplicitMidpoint.o: TEST_ImplicitMidpoint.cpp ImplicitMidpoint.h
 
 TEST_ImplicitTrapezoidal.o: TEST_ImplicitTrapezoidal.cpp ImplicitTrapezoidal.h
 
-TEST_Solver.o: TEST_ImplicitSolver.cpp ImplicitSolver.h ImplicitEuler.h ImplicitMidpoint.h ImplicitTrapezoidal.h
+TEST_ImplicitSolver.o: TEST_ImplicitSolver.cpp ImplicitSolver.h ImplicitEuler.h ImplicitMidpoint.h ImplicitTrapezoidal.h
+
+TEST_AnalyticalExplicitSolver.o: TEST_AnalyticalExplicitSolver.cpp Solver.h EulerIntegrator.h RungeKutta2.h RungeKutta4.h
 
 # Explicit
 
@@ -79,6 +83,8 @@ ImplicitTrapezoidal.o: ImplicitTrapezoidal.cpp ImplicitTrapezoidal.h ImplicitInt
 
 Solver.o: Solver.cpp Solver.h Integrator.h
 
+AnalyticalExplicitSolver.o: AnalyticalExplicitSolver.cpp AnalyticalExplicitSolver.h
+
 ImplicitSolver.o: ImplicitSolver.cpp ImplicitSolver.h ImplicitIntegrator.h
 
 NewtonMethod.o: NewtonMethod.cpp NewtonMethod.h
@@ -87,4 +93,4 @@ clean:
 	rm -f *.o
 	
 cleanall:
-	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver
+	rm -f *.o *.dat TEST_EulerIntegrator TEST_RungeKutta2 TEST_RungeKutta4 TEST_Solver TEST_NewtonMethod TEST_ImplicitEuler TEST_Function TEST_ImplicitMidpoint TEST_ImplicitTrapezoidal TEST_ImplicitSolver TEST_AnalyticalExplicitSolver
