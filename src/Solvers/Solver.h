@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <array>
+#include <iostream>
 
 class Solver
 {
@@ -12,6 +13,7 @@ public:
     Solver(double y0, double xmin_, double xmax_, Integrator* I_);
     
     Solver(const Solver&) = delete;
+    Solver(const Solver&&) = delete;
     Solver& operator=(const Solver&) = delete;
     
     //! Check if the problem has been solved.
@@ -23,6 +25,8 @@ public:
     void solve();
     
     std::vector<std::array<double,2>> get_solution() const;
+    
+    void print(std::ostream& out = std::cout) const;
     
     ~Solver();
     

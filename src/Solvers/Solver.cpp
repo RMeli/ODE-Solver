@@ -41,6 +41,14 @@ std::vector<std::array<double,2>> Solver::get_solution() const
     return solution;
 }
 
+void Solver::print(std::ostream& out) const
+{
+    for (std::array<double,2> P : solution)
+    {
+        out << P[0] << ' ' << P[1] << std::endl;
+    }
+}
+
 Solver::~Solver()
 {
     delete I_ptr;
