@@ -1,14 +1,14 @@
-#include "AnalyticalImplicitSolver.h"
+#include "AnalyticalSolver.h"
 
 #include "../Utilities/Exception.h"
 
 #include <cmath>
 
-AnalyticalImplicitSolver::AnalyticalImplicitSolver(double y0_, double xmin_, double xmax_, ImplicitIntegrator* I_, double (*s_)(double))
-: ImplicitSolver(y0_,xmin_,xmax_,I_), s(s_)
+AnalyticalSolver::AnalyticalSolver(double y0_, double xmin_, double xmax_, Integrator* I_, double (*s_)(double))
+: Solver(y0_,xmin_,xmax_,I_), s(s_)
 {}
 
-void AnalyticalImplicitSolver::solve()
+void AnalyticalSolver::solve()
 {
     double dx( I_ptr->get_dx() );
     
@@ -31,7 +31,7 @@ void AnalyticalImplicitSolver::solve()
     }
 }
 
-std::vector<std::array<double,3>> AnalyticalImplicitSolver::get_analytical_solution() const
+std::vector<std::array<double,3>> AnalyticalSolver::get_analytical_solution() const
 {
     if (!is_solved()) // If solution is not solved, analytical_solution is empty too
     {

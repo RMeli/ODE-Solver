@@ -1,7 +1,10 @@
+#include "../ExplicitIntegrators/EulerIntegrator.h"
+#include "../ExplicitIntegrators/RungeKutta2.h"
+#include "../ExplicitIntegrators/RungeKutta4.h"
 #include "../ImplicitIntegrators/ImplicitEuler.h"
 #include "../ImplicitIntegrators/ImplicitMidpoint.h"
 #include "../ImplicitIntegrators/ImplicitTrapezoidal.h"
-#include "../Solvers/AnalyticalImplicitSolver.h"
+#include "../Solvers/AnalyticalSolver.h"
 
 #include "testfunction.h"
 
@@ -25,14 +28,37 @@ int main()
     double xmax(5);
     double dx(0.5);
     
-    AnalyticalImplicitSolver IES(y0,xmin,xmax, new ImplicitEuler(f,dx,df),s);
-    AnalyticalImplicitSolver IMS(y0,xmin,xmax, new ImplicitMidpoint(f,dx,df),s);
-    AnalyticalImplicitSolver ITS(y0,xmin,xmax, new ImplicitTrapezoidal(f,dx,df),s);
+    AnalyticalSolver ES(y0,xmin,xmax, new EulerIntegrator(f,dx),s);
+    AnalyticalSolver RK4S(y0,xmin,xmax, new RungeKutta4(f,dx),s);
+    AnalyticalSolver RK2S(y0,xmin,xmax, new RungeKutta2(f,dx),s);
+    
+    ES.solve();
+    RK2S.solve();
+    RK4S.solve();
+    
+    AnalyticalSolver IES(y0,xmin,xmax, new ImplicitEuler(f,dx,df),s);
+    AnalyticalSolver IMS(y0,xmin,xmax, new ImplicitMidpoint(f,dx,df),s);
+    AnalyticalSolver ITS(y0,xmin,xmax, new ImplicitTrapezoidal(f,dx,df),s);
     
     IES.solve();
     IMS.solve();
     ITS.solve();
     
+    if (ES.is_solved())
+    {
+        print_solution( ES.get_solution(), ES.get_analytical_solution());
+    }
+    std::cout << "\n\n"; // Start a new dataset for gnuplot
+    if (RK2S.is_solved())
+    {
+        print_solution( RK2S.get_solution(), RK2S.get_analytical_solution());
+    }
+    std::cout << "\n\n"; // Start a new dataset for gnuplot
+    if (RK4S.is_solved())
+    {
+        print_solution( RK4S.get_solution(), RK4S.get_analytical_solution());
+    }
+    std::cout << "\n\n"; // Start a new dataset for gnuplot
     if (IES.is_solved())
     {
         print_solution( IES.get_solution(), IES.get_analytical_solution());
@@ -47,7 +73,6 @@ int main()
     {
         print_solution( ITS.get_solution(), ITS.get_analytical_solution());
     }
-    
     
     return 0;
 }

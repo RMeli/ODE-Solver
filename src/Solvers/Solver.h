@@ -1,7 +1,7 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include "../Integrators/ExplicitIntegrator.h"
+#include "../Integrators/Integrator.h"
 
 #include <vector>
 #include <array>
@@ -9,7 +9,7 @@
 class Solver
 {
 public:
-    Solver(double y0, double xmin_, double xmax_, ExplicitIntegrator* I_);
+    Solver(double y0, double xmin_, double xmax_, Integrator* I_);
     
     Solver(const Solver&) = delete;
     Solver& operator=(const Solver&) = delete;
@@ -31,7 +31,7 @@ protected:
     double y0;
     double xmin;
     double xmax;
-    ExplicitIntegrator* I_ptr;
+    Integrator* I_ptr;
 };
 
 #endif

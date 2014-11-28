@@ -1,6 +1,9 @@
 #include "../ExplicitIntegrators/EulerIntegrator.h"
 #include "../ExplicitIntegrators/RungeKutta2.h"
 #include "../ExplicitIntegrators/RungeKutta4.h"
+#include "../ImplicitIntegrators/ImplicitEuler.h"
+#include "../ImplicitIntegrators/ImplicitMidpoint.h"
+#include "../ImplicitIntegrators/ImplicitTrapezoidal.h"
 #include "../Solvers/Solver.h"
 
 #include "testfunction.h"
@@ -32,6 +35,14 @@ int main()
     RK2S.solve();
     RK4S.solve();
     
+    Solver IES(y0,xmin,xmax, new ImplicitEuler(f,dx,df) );
+    Solver IMS(y0,xmin,xmax, new ImplicitMidpoint(f,dx,df) );
+    Solver ITS(y0,xmin,xmax, new ImplicitTrapezoidal(f,dx,df) );
+    
+    IES.solve();
+    IMS.solve();
+    ITS.solve();
+    
     if (ES.is_solved())
     {
         print_solution( ES.get_solution());
@@ -45,6 +56,21 @@ int main()
     if (RK4S.is_solved())
     {
         print_solution( RK4S.get_solution());
+    }
+    std::cout << "\n\n"; // Start a new dataset for gnuplot
+    if (IES.is_solved())
+    {
+        print_solution( IES.get_solution());
+    }
+    std::cout << "\n\n"; // Start a new dataset for gnuplot
+    if (IMS.is_solved())
+    {
+        print_solution( IMS.get_solution());
+    }
+    std::cout << "\n\n"; // Start a new dataset for gnuplot
+    if (ITS.is_solved())
+    {
+        print_solution( ITS.get_solution());
     }
 
     

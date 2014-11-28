@@ -2,7 +2,7 @@
 
 #include "../Utilities/Exception.h"
 
-Solver::Solver(double y0_, double xmin_, double xmax_, ExplicitIntegrator* I_)
+Solver::Solver(double y0_, double xmin_, double xmax_, Integrator* I_)
 : y0(y0_), xmin(xmin_), xmax(xmax_), I_ptr(I_)
 {}
 
