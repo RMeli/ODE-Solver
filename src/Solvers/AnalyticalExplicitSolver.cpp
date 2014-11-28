@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-AnalyticalExplicitSolver::AnalyticalExplicitSolver(double y0_, double xmin_, double xmax_, Integrator* I_, double (*s_)(double))
+AnalyticalExplicitSolver::AnalyticalExplicitSolver(double y0_, double xmin_, double xmax_, ExplicitIntegrator* I_, double (*s_)(double))
 : Solver(y0_,xmin_,xmax_,I_), s(s_)
 {}
 

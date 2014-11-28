@@ -1,7 +1,7 @@
 #ifndef IMPLICITMIDPOINT_H
 #define IMPLICITMIDPOINT_H
 
-#include "ImplicitIntegrator.h"
+#include "../Integrators/ImplicitIntegrator.h"
 #include "../Utilities/Function.h"
 
 

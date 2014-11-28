@@ -1,6 +1,3 @@
-add_library(Integrator Integrator.cpp)
-target_include_directories (Integrator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
 add_library(EulerIntegrator EulerIntegrator.cpp)
 target_include_directories (EulerIntegrator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

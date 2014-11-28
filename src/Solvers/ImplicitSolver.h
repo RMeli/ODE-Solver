@@ -1,7 +1,7 @@
 #ifndef IMPLICITSOLVER_H
 #define IMPLICITSOLVER_H
 
-#include "../ImplicitIntegrators/ImplicitIntegrator.h"
+#include "../Integrators/ImplicitIntegrator.h"
 
 #include <vector>
 #include <array>

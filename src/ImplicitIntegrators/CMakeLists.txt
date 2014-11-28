@@ -1,6 +1,3 @@
-add_library(ImplicitIntegrator ImplicitIntegrator.cpp)
-target_include_directories (ImplicitIntegrator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
 add_library(ImplicitEuler ImplicitEuler.cpp)
 target_include_directories (ImplicitEuler PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

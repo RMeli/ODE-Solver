@@ -1,7 +1,7 @@
 #ifndef IMPLICITTRAPEZOIDAL_H
 #define IMPLICITTRAPEZOIDAL_H
 
-#include "ImplicitIntegrator.h"
+#include "../Integrators/ImplicitIntegrator.h"
 #include "../Utilities/Function.h"
 
 //! ImplicitTrapezoidal class.

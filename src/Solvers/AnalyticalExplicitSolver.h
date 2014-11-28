@@ -9,7 +9,7 @@
 class AnalyticalExplicitSolver : public Solver
 {
 public:
-    AnalyticalExplicitSolver(double y0, double xmin_, double xmax_, Integrator* I_, double (*s_)(double));
+    AnalyticalExplicitSolver(double y0, double xmin_, double xmax_, ExplicitIntegrator* I_, double (*s_)(double));
     
     AnalyticalExplicitSolver(const AnalyticalExplicitSolver&) = delete;
     AnalyticalExplicitSolver& operator=(const AnalyticalExplicitSolver&) = delete;

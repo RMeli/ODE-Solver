@@ -1,10 +1,10 @@
 #include "RungeKutta4.h"
 
 RungeKutta4::RungeKutta4(double (*ODE_)(double,double), double dx_)
-: Integrator(ODE_,dx_)
+: ExplicitIntegrator(ODE_,dx_)
 {}
 
-double RungeKutta4::step(double xn, double yn) const
+double RungeKutta4::step(double xn, double yn)
 {
     double dx2(dx/2.);
     

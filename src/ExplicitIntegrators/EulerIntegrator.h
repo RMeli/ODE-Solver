@@ -1,7 +1,7 @@
 #ifndef EULERINTEGRATOR_H
 #define EULERINTEGRATOR_H
 
-#include "Integrator.h"
+#include "../Integrators/ExplicitIntegrator.h"
 
 //! EulerIntegrator class.
 /*!
@@ -9,7 +9,7 @@
  
  This method is of oreder one in dx (step size) and present problems of stability. This method should be used with small step size (pay attention to rounding errors) and only for comparaison purposes.
  */
-class EulerIntegrator : public Integrator
+class EulerIntegrator : public ExplicitIntegrator
 {
 public:
     //! Constructor.
@@ -22,7 +22,7 @@ public:
     /*!
      Perform a step of lenght dx starting from xn and yn, calculating y(n+1) that obviosuly corresponds to xn+dx.
      */
-    double step(double xn, double yn) const;
+    double step(double xn, double yn);
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef IMPLICITEULER_H
 #define IMPLICITEULER_H
 
-#include "ImplicitIntegrator.h"
+#include "../Integrators/ImplicitIntegrator.h"
 #include "../Utilities/Function.h"
 
 //! ImplicitEuler class.
