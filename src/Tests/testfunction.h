@@ -5,17 +5,17 @@
 
 double f(double x, double y)
 {
-    return -y;
+    return -std::sin(x);
 }
 
 double df(double x, double y)
 {
-    return -1;
+    return -std::cos(x);
 }
 
 double s(double x)
 {
-    return std::exp(-x);
+    return std::sin(x);
 }
 
 #endif
