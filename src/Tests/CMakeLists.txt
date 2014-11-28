@@ -1,0 +1,32 @@
+add_executable(TEST_NewtonMethod TEST_NewtonMethod.cpp)
+target_link_libraries (TEST_NewtonMethod LINK_PUBLIC NewtonMethod)
+
+add_executable(TEST_EulerIntegrator TEST_EulerIntegrator.cpp)
+target_link_libraries (TEST_EulerIntegrator LINK_PUBLIC Integrator EulerIntegrator)
+
+add_executable(TEST_RungeKutta2 TEST_RungeKutta2.cpp)
+target_link_libraries (TEST_RungeKutta2 LINK_PUBLIC Integrator RungeKutta2)
+
+add_executable(TEST_RungeKutta4 TEST_RungeKutta4.cpp)
+target_link_libraries (TEST_RungeKutta4 LINK_PUBLIC Integrator RungeKutta4)
+
+add_executable(TEST_ImplicitEuler TEST_ImplicitEuler.cpp)
+target_link_libraries (TEST_ImplicitEuler LINK_PUBLIC ImplicitIntegrator ImplicitEuler NewtonMethod)
+
+add_executable(TEST_ImplicitMidpoint TEST_ImplicitMidpoint.cpp)
+target_link_libraries (TEST_ImplicitMidpoint LINK_PUBLIC ImplicitIntegrator ImplicitMidpoint NewtonMethod)
+
+add_executable(TEST_ImplicitTrapezoidal TEST_ImplicitTrapezoidal.cpp)
+target_link_libraries (TEST_ImplicitTrapezoidal LINK_PUBLIC ImplicitIntegrator ImplicitTrapezoidal NewtonMethod)
+
+add_executable(TEST_Solver TEST_Solver.cpp)
+target_link_libraries (TEST_Solver LINK_PUBLIC Solver Integrator EulerIntegrator RungeKutta2 RungeKutta4)
+
+add_executable(TEST_ImplicitSolver TEST_ImplicitSolver.cpp)
+target_link_libraries (TEST_ImplicitSolver LINK_PUBLIC ImplicitSolver ImplicitIntegrator ImplicitEuler ImplicitMidpoint ImplicitTrapezoidal NewtonMethod)
+
+add_executable(TEST_AnalyticalExplicitSolver TEST_AnalyticalExplicitSolver.cpp)
+target_link_libraries (TEST_AnalyticalExplicitSolver LINK_PUBLIC AnalyticalExplicitSolver Solver Integrator EulerIntegrator RungeKutta2 RungeKutta4)
+
+add_executable(TEST_AnalyticalImplicitSolver TEST_AnalyticalImplicitSolver.cpp)
+target_link_libraries (TEST_AnalyticalImplicitSolver LINK_PUBLIC AnalyticalImplicitSolver ImplicitSolver ImplicitIntegrator ImplicitEuler ImplicitMidpoint ImplicitTrapezoidal NewtonMethod)

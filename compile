@@ -1,0 +1,23 @@
+#!/bin/sh
+
+mkdir build
+
+cat > build/configure << EOF
+#!/bin/sh
+
+rm CMakeCache.txt
+rm -r CMakeFiles
+
+cmake \
+    -D CMAKE_BUILD_TYPE:STRING=RELEASE \
+    -D CMAKE_CXX_COMPILER:STRING=g++ \
+    -D CMAKE_CXX_FLAGS:STRING="-std=c++11 -Wall -O3" \
+    ../src
+
+EOF
+
+cd build
+
+chmod +ux configure
+
+./configure && make
