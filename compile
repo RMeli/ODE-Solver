@@ -18,6 +18,6 @@ EOF
 
 cd build
 
-chmod +ux configure
+chmod u+x configure
 
 ./configure && make

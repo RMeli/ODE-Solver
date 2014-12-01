@@ -1,0 +1,27 @@
+#########################################################
+# NOLNLIEAR FIRST ORDER ORDINARY DIFFERENTIAL EQUATIONS #
+#########################################################
+
+This library allows to solve nonlinear first order ordinary differential equations. Three one step explicit methods and three implicit methods are provided.
+
+%%%%%%%%%%%
+% COMPILE %
+%%%%%%%%%%%
+In order to compile the library we have to type
+	
+	./compile
+	
+This command call the CMake program that creates a Makefile, that is then used directly to compile the whole library.
+
+An extensive testsuite is provided and the binary files for all the test are found in
+	
+	
+
+%%%%%%%
+% DOC %
+%%%%%%%
+In order to create the documentation we have to type
+	
+	./document
+	
+Documentation contain the GPL license, a detailed description of the project with possible extensions and limitations and Doxygen documentation.
