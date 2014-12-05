@@ -43,7 +43,7 @@ int main()
     IES.solve();
     IMS.solve();
     ITS.solve();
-    
+
     std::ofstream fout("output.dat");
     
     if (ES.is_solved())
@@ -67,6 +67,7 @@ int main()
     }
     std::cout << "\n\n"; // Start a new dataset for gnuplot
     fout << "\n\n";
+
     if (IES.is_solved())
     {
         print_solution( IES.get_solution());
@@ -86,7 +87,7 @@ int main()
         print_solution( ITS.get_solution());
         ITS.print(fout);
     }
-    
+
     fout.close();
 
     

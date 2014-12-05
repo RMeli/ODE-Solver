@@ -15,7 +15,7 @@ void Solver::solve()
     
     std::array<double,2> step({0,0});
     
-    while (xn < xmax)
+    while (xn <= xmax)
     {
         step = {xn, yn};
         solution.push_back(step);

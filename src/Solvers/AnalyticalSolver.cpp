@@ -18,7 +18,7 @@ void AnalyticalSolver::solve()
     std::array<double,2> step({0,0});
     std::array<double,3> step_a({0,0,0});
     
-    while (xn < xmax)
+    while (xn <= xmax)
     {
         step = {xn, yn};
         step_a ={s(xn), std::abs(yn-s(xn)), std::abs( (yn-s(xn))/s(xn) )};
