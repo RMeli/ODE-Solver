@@ -35,13 +35,26 @@ void AnalyticalSolver::solve()
     double xn(xmin);
     double yn(y0);
     
-    std::array<double,2> step({0,0});
-    std::array<double,3> step_a({0,0,0});
+    // gcc4.8
+    //std::array<double,2> step({0,0});
+    //std::array<double,3> step_a({0,0,0});
+    
+    std::array<double,2> step;
+    std::array<double,3> step_a;
     
     while (xn <= xmax)
     {
-        step = {xn, yn};
-        step_a ={s(xn), std::abs(yn-s(xn)), std::abs( (yn-s(xn))/s(xn) )};
+        // gcc4.8
+        //step = {xn, yn};
+        //step_a ={s(xn), std::abs(yn-s(xn)), std::abs( (yn-s(xn))/s(xn) )};
+        
+        step[0] = xn;
+        step[1] = yn;
+        
+        step_a[0] = s(xn);
+        step_a[1] = std::abs(yn-s(xn));
+        step_a[2] = std::abs( (yn-s(xn))/s(xn) );
+        
         solution.push_back(step);
         analytical_solution.push_back(step_a);
         

@@ -33,11 +33,17 @@ void Solver::solve()
     double xn(xmin);
     double yn(y0);
     
-    std::array<double,2> step({0,0});
+    // gcc4.8
+    //std::array<double,2> step({0,0});
     
     while (xn <= xmax)
     {
-        step = {xn, yn};
+        // gcc4.8
+        // step = {xn, yn};
+        
+        step[0] = xn;
+        step[1] = yn;
+        
         solution.push_back(step);
         
         yn = I_ptr->step(xn,yn);
