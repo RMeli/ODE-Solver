@@ -24,6 +24,7 @@ Note that CMake reproduce the same tree that we find in the /src directory.
 %%%%%%%
 Provided tests:
 TEST_Solver and TEST_AnalyticalSolver solve a given problem with all the provided integrators, both implicit and explicit (note that eventual exceptions thrown by the integrators when trying to solve the problem are not handled!). The function defining the problem is defined in scr/Tests/testfunction.h It is sufficient to modify this file and recompile in order to specify a new problem.
+All other classes has been tested one-by-one.
 
 Personal use:
 Create a new .cpp file containing the main function in /scr/Tests and add it (with the needed dependencies) on the CMakeLists.txt file on the same folder, following what is done with the testsuite. It is also possible to create a new folder (that need a new CMakeLists.txt) containing the new files. Remember that relative path must be specified for the inclusions.
