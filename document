@@ -50,20 +50,22 @@ In the case of implicit methods we need to solve a nonlinear equation at each st
 ################
 # REQUIREMENTS #
 ################
-CMake 3.0 or later is required in order to compile the library.
+CMake 3.0 or later is required in order to compile the library. A local installation of CMake is easy (http://www.cmake.org/download/). It is possible to change the CMake command inside the ./compile script, in order to find the local binary of CMake.
 
-C++11 standard is used and is therefore foundamental to compile the library. The library compiles with g++4.8 with the option -std=c++11.
+C++11 standard is used and is therefore foundamental to compile the library. The library compiles with g++4.8 with the option -std=c++11. Some c++11 features has been reduced in order to compile also with g++4.7 (always with the option -std=c++11). The library has been tested on Mac OS X 10.9 (Maveriks), Mac OS X 10.10 (Yosemite) and Debian 7.7 (Wheezy).
 
 ###############
 # LIMITATIONS #
 ###############
 Additional utilities of the library are specifically designed to be used by ODEs integrators and/or solvers, and therefore can result cumbersome sometimes. Despite this a big effort is done in order to give the possibility of using this methods outside the provided classes.
 The Newton method need an object of type Function, that is a pure virtual class. This imply that a derived class where the function f and its derivative df are defined is needed and we have to pass a pointer to this new class to the Newton method. This may seem cumbersome (and it is) but is the only way to keep private the definition of the nonlinear function in implicit integrators, while giving the Newton method a general form that allows the use of this methods for any pourpose. A simpler implementation would have been to define the newton method directly inside the integrators, but the aim here was to giv acces to this method also to the user.
+Classes containing pointers to objects or to functions cannot be copied or moved: copy constructor, assignement operator and move constructor are deleted. This is because an explicit treatement of this functions take time and it is almost useless. Destructor are implemented in order to take care of memory management (the rule of three is not violated thank to deleted functions).
+A class that automatically compute the order of one method is not present as more difficult to conceive properly than to implement manually using the provided blocks in one simple program.
 
 ########
 # BUGS #
 ########
-Any bug was found during an extensive test of the library over different ODSs. Solution of difficult ODEs that does not have a simple analytical solution were compared with Matlab's Mathamatica's solutions.
+Any bug was found during an extensive test of the library over different ODSs. Solution of difficult ODEs that do not have a simple analytical solution were compared with Matlab's Mathamatica's solutions.
 
 Please report any bug to
 	
