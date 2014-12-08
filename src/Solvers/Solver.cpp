@@ -36,6 +36,8 @@ void Solver::solve()
     // gcc4.8
     //std::array<double,2> step({0,0});
     
+    std::array<double,2> step;
+    
     while (xn <= xmax)
     {
         // gcc4.8
