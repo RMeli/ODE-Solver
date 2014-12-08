@@ -37,6 +37,10 @@ public:
      */
     ImplicitIntegrator(double (*ODE_)(double,double), double dx_, double (*dODE_)(double,double));
     
+    ImplicitIntegrator(const ImplicitIntegrator&) = delete;
+    ImplicitIntegrator(const ImplicitIntegrator&&) = delete;
+    ImplicitIntegrator& operator=(const ImplicitIntegrator&) = delete;
+    
 protected:
     //! Derivative of the ODE.
     /*!

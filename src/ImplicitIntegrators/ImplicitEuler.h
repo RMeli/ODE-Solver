@@ -41,6 +41,10 @@ public:
      */
     ImplicitEuler(double (*ODE_)(double,double), double dx_, double (*dODE_)(double,double));
     
+    ImplicitEuler(const ImplicitEuler&) = delete;
+    ImplicitEuler(const ImplicitEuler&&) = delete;
+    ImplicitEuler& operator=(const ImplicitEuler&) = delete;
+    
     //! Integrating function.
     /*!
      Performs a step of lenght dx starting from xn and yn, calculating y(n+1) that obviosuly corresponds to xn+dx.

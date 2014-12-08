@@ -40,6 +40,10 @@ public:
      */
     ImplicitMidpoint(double (*ODE_)(double,double), double dx_, double (*dODE_)(double,double));
     
+    ImplicitMidpoint(const ImplicitMidpoint&) = delete;
+    ImplicitMidpoint(const ImplicitMidpoint&&) = delete;
+    ImplicitMidpoint& operator=(const ImplicitMidpoint&) = delete;
+    
     //! Integrating function.
     /*!
      Perform a step of lenght dx starting from xn and yn, calculating y(n+1) that obviosuly corresponds to xn+dx.

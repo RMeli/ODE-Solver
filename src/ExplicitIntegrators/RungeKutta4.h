@@ -36,6 +36,10 @@ public:
      */
     RungeKutta4(double (*ODE_)(double,double), double dx_);
     
+    RungeKutta4(const RungeKutta4&) = delete;
+    RungeKutta4(const RungeKutta4&&) = delete;
+    RungeKutta4& operator=(const RungeKutta4&) = delete;
+    
     //! Integrating function.
     /*!
      Perform a step of lenght dx starting from xn and yn, calculating y(n+1) that obviosuly corresponds to xn+dx.

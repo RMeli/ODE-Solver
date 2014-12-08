@@ -34,6 +34,10 @@ public:
      */
     Integrator(double (*ODE_)(double,double), double dx_);
     
+    Integrator(const Integrator&) = delete;
+    Integrator(const Integrator&&) = delete;
+    Integrator& operator=(const Integrator&) = delete;
+    
     //! Step lenght.
     /*!
      This function returns the step lenght.

@@ -41,6 +41,10 @@ public:
      */
     ImplicitTrapezoidal(double (*ODE_)(double,double), double dx_, double (*dODE_)(double,double));
     
+    ImplicitTrapezoidal(const ImplicitTrapezoidal&) = delete;
+    ImplicitTrapezoidal(const ImplicitTrapezoidal&&) = delete;
+    ImplicitTrapezoidal& operator=(const ImplicitTrapezoidal&) = delete;
+    
     //! Integrating function.
     /*!
      Performs a step of lenght dx starting from xn and yn, calculating y(n+1) that obviosuly corresponds to xn+dx.

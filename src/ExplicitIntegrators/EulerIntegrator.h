@@ -38,6 +38,10 @@ public:
      */
     EulerIntegrator(double (*ODE_)(double,double), double dx_);
     
+    EulerIntegrator(const EulerIntegrator&) = delete;
+    EulerIntegrator(const EulerIntegrator&&) = delete;
+    EulerIntegrator& operator=(const EulerIntegrator&) = delete;
+    
     //! Integrating function.
     /*!
      Perform a step of lenght dx starting from xn and yn, calculating y(n+1) that obviosuly corresponds to xn+dx.

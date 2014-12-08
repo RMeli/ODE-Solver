@@ -37,6 +37,10 @@ public:
      */
     NewtonMethod(double y0_, Function* F, double tol_ = 1e-6, int maxiter_ = 1000);
     
+    NewtonMethod(const NewtonMethod&) = delete;
+    NewtonMethod(const NewtonMethod&&) = delete;
+    NewtonMethod& operator=(const NewtonMethod&) = delete;
+    
     //! Solver.
     /*!
      This function effectively solve the problem and return x0 such that f(x0)=0

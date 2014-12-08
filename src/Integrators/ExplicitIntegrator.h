@@ -35,6 +35,10 @@ public:
      Take the ODE to integrate and the step lenght as arguemnts.
      */
     ExplicitIntegrator(double (*ODE_)(double,double), double dx_);
+    
+    ExplicitIntegrator(const ExplicitIntegrator&) = delete;
+    ExplicitIntegrator(const ExplicitIntegrator&&) = delete;
+    ExplicitIntegrator& operator=(const ExplicitIntegrator&) = delete;
 };
 
 #endif
