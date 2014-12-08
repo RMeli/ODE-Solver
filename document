@@ -33,30 +33,41 @@ In addition the library contains the following utilities, that are used by the O
 ############
 # ANALYSIS #
 ############
-It is useful to study the performance of a different ODE solver in order to decide which one to use to solve a given problem (performance, accuracy, ...). Some analysis tools are provided with the library in order to facilitate the task.
-
-(TO BE DEFINED BUT CETRAINELY A CLASS THAT COMPARE NUMERICAL SOLUTION WITH ANALYTICAL ONE AND COMPUTE THE ERRORS, MAYBE PLOTTING FACILITY THAT PROVIDE GNUPLOT SCRIPTS)
-
+It is useful to study the performance of a different ODE solver in order to decide which one to use to solve a given problem (performance, accuracy, ...). A class that compares numerical solution of a given Integrator with the exact analytical solution is provided. This class compute both the numerical solution and the analytical one at the same point and compute the absolute and the relative error between the two.
 
 #############
 # STRUCTURE #
 #############
-Explicit and implicit methods are (up to now) considered as two separate entities.
-
-All explicit methods derive from Integrator class, which store the function to integrate and the step length. This class is pure virtual as the function that performs the integration step will be defined in derived classes (the explicit methods).
+All explicit and implicit methods derive from Integrator class, which store the function to integrate and the step length. This class is pure virtual as the function that performs the integration step will be defined in deep derived classes. ExplicitIntegrator and ImplicitIntegrator method differentiate between explicit and implicit methods (implicit methods need also the derivative of f(x,y) in order to use NewtonMethod) but does not implement the pure vistual function step. This function is implemented in derived class.
 
 A Solver class will apply an Integrator to the problem. The problem is a Cauchy problem, defined by
 	y' = f(x,y)
 	y(x0) = y0
 The interval [x0,xN] and the initial value y0 are member of the Solver class, that also own a pointer to an Integrator. The Integrator is applied sequentially to the problem in order to obtain the complete solution over [x0,xN]. The solution (xn,yn) is stored as a two-element std::array inside a std::vector.
 
-The same structure is applied to explicit methods. In this case we need to solve a nonlinear equation at each step, therefore the ImplicitIntegrator class also contain a NewtonMethod class that can solve the nonlinear problem. In order to use the NewtonMethod, we also need to know the derivative of the function f(x,y) with respect to y. The nonlinear functions defining the methods are derived from the pure virtual class Function, that is used by the NewtonMethod. This derived classes are defined in the private section of the implicit integrator, in order to keep a restricted access. 
+In the case of implicit methods we need to solve a nonlinear equation at each step, therefore the ImplicitIntegrator class also contain a NewtonMethod class that can solve the nonlinear problem. In order to use the NewtonMethod, we also need to know the derivative of the function f(x,y) with respect to y. The nonlinear functions defining the methods are derived from the pure virtual class Function, that is used by the NewtonMethod. This derived classes are defined in the private section of the implicit integrator, in order to keep a restricted access.
+
+################
+# REQUIREMENTS #
+################
+CMake 3.0 or later is required in order to compile the library.
+
+C++11 standard is used and is therefore foundamental to compile the library. The library compiles with g++4.8 with the option -std=c++11.
 
 ###############
 # LIMITATIONS #
 ###############
 Additional utilities of the library are specifically designed to be used by ODEs integrators and/or solvers, and therefore can result cumbersome sometimes. Despite this a big effort is done in order to give the possibility of using this methods outside the provided classes.
 The Newton method need an object of type Function, that is a pure virtual class. This imply that a derived class where the function f and its derivative df are defined is needed and we have to pass a pointer to this new class to the Newton method. This may seem cumbersome (and it is) but is the only way to keep private the definition of the nonlinear function in implicit integrators, while giving the Newton method a general form that allows the use of this methods for any pourpose. A simpler implementation would have been to define the newton method directly inside the integrators, but the aim here was to giv acces to this method also to the user.
+
+########
+# BUGS #
+########
+Any bug was found during an extensive test of the library over different ODSs. Solution of difficult ODEs that does not have a simple analytical solution were compared with Matlab's Mathamatica's solutions.
+
+Please report any bug to
+	
+	rocco.meli@epfl.ch
 
 EOF
 
