@@ -62,6 +62,15 @@ The Newton method need an object of type Function, that is a pure virtual class.
 Classes containing pointers to objects or to functions cannot be copied or moved: copy constructor, assignement operator and move constructor are deleted. This is because an explicit treatement of this functions take time and it is almost useless. Destructor are implemented in order to take care of memory management (the rule of three is not violated thank to deleted functions).
 A class that automatically compute the order of one method is not present as more difficult to conceive properly than to implement manually using the provided blocks in one simple program.
 
+##############
+# EXTENSIONS #
+##############
+This library is concieved in such a way that many extension can be easy to implement. 
+
+Following what was already done it is possible to add any explicit one step method. Other implicit methods may require the solution of a nonlinear system of equations, that should be implemented on the footprint of NewtonMethod class.
+
+Multistep methods can also be implemented and they can probably derive from one step methods, as this one step method is normally used for the first step.
+
 ########
 # BUGS #
 ########
