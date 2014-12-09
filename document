@@ -3088,6 +3088,52 @@ DOT_CLEANUP            = YES
 
 EOF
 
+cat > mainpage.dox << EOF
+/**
+\mainpage The mainpage documentation
+
+#######################
+# PROJECT DESCRIPTION #
+#######################
+The aim of this project is to develop a series of classes (basically a library) that allows the solution of scalar ODEs (with a general nonlinear function). ODEs will be of the type
+	y' = f(x,y)
+where y' denote the derivative of y with respect to x. Higher-order ODEs are considered vectorial problems, as any N-order scalar ODE can be transformed into a system of N first-order ODEs, and are not implemented here (at the moment).
+
+#####################
+# NUMERICAL METHODS #
+#####################
+The library will contain both explicit and implicit methods, of different orders.
+
+The explicit method provided are:
+	- Explicit Euler
+	- 2nd order Runge-Kutta
+	- 4th order Runge-Kutta
+	
+The implicit methods provided are:
+	- Implicit Euler
+	- Implicit Midpoint
+	- Implicit Trapezoidal
+	
+In addition the library contains the following utilities, that are used by the ODEs solvers:
+	- Newton Method
+	
+################
+# REQUIREMENTS #
+################
+C++11 standard is used and is therefore foundamental to compile the library. The library compiles with g++4.8 with the option -std=c++11. Some c++11 features has been reduced in order to compile also with g++4.7 (always with the option -std=c++11). The library has been tested on Mac OS X 10.9 (Maveriks), Mac OS X 10.10 (Yosemite) and Debian 7.7 (Wheezy).
+
+########
+# BUGS #
+########
+Any bug was found during an extensive test of the library over different ODSs. Solution of difficult ODEs that do not have a simple analytical solution were compared with Matlab's Mathamatica's solutions.
+
+Please report any bug to
+	
+	rocco.meli@epfl.ch
+*/
+EOF
+
 doxygen Doxyfile.in
 
 rm Doxyfile.in
+rm mainpage.dox
