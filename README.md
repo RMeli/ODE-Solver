@@ -10,9 +10,11 @@ Higher-order ODEs are considered vectorial problems, as any N-order scalar ODE c
 
 ### Disclaimer
 
-This library has been written in 2014 for the class **Programming Concepts in Scientific Computing** at *Ecole Polytechnique Fédérale de Lausanne* and was awarded the maximum grade. However my C++ programming skills further developed in recent years (in particular towards more advanced C++11 concepts) and therefore this library does not reflect anymore my programming style and designe and the level of my programming skills.
+This library has been written in 2014 for the class **Programming Concepts in Scientific Computing** at *Ecole Polytechnique Fédérale de Lausanne* and was awarded the maximum grade. However my C++ programming skills further developed in recent years (in particular towards more advanced C++11 concepts) and therefore this library does not reflect anymore my programming style nor the level of my programming skills.
 
-I recognise in this library there are conceptual errors. In particular C-style pointers are handled incorrectly. Many errors can now be easily avoided using C++ concepts as `std::unique_ptr` and the cumbersome C-stype syntax for pinters to functions can be altogheter avoided using `std::function`.
+I recognise in this library there are conceptual errors. In particular C-style pointers are sometime handled incorrectly. Many errors can now be easily avoided using C++11 concepts such as `std::unique_ptr`. In the same way, cumbersome C-stype syntax for pinters to functions can be altogether avoided using `std::function`.
+
+Some small modifications have been made to this project during in recent years, but the source code remained unchanged and therefore still contains design and programming mistakes.
 
 ## Numerical Methods
 
@@ -48,7 +50,7 @@ In the case of implicit methods we need to solve a nonlinear equation at each st
 
 ### Analysis
 
-It is useful to study the performance of a different ODE solver in order to decide which one to use to solve a given problem (performance, accuracy, ...). A class that compares numerical solution of a given `Integrator` with the exact analytical solution is provided. This class compute both the numerical solution and the analytical one at the same point and compute the absolute and the relative error between the two
+It is useful to study the performance of a different ODE solver in order to decide which one to use to solve a given problem (performance, accuracy, ...). A class comparing the numerical solution of a given `Integrator` with the exact analytical solution is provided. This class computes both the numerical solution and the analytical one at the same point and compute the absolute and the relative errors between the two.
 
 ## Compilation
 
@@ -71,15 +73,7 @@ while to build the library in `Release` mode (with optimization) you can type
     mkdir build && cd build
     cmake --CMAKE_BUILD_TYPE=Release ..
     make
-
-## Use
-
-### Testing
-
-Testing capabilities are provided by CMake. All the provided tests can be run after compilation by typing
-
-    make test
-
+    
 ## Documentation
 
 The library is documented with Doxygen. To build the documentation type
