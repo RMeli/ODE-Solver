@@ -1,3 +1,5 @@
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 add_executable(TEST_NewtonMethod TEST_NewtonMethod.cpp)
 target_link_libraries (TEST_NewtonMethod LINK_PUBLIC NewtonMethod)
 
