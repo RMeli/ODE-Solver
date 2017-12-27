@@ -1,36 +1,69 @@
 # Nonlinear First Order Ordinary Differential Equations 
 
-This library allows to solve nonlinear first order ordinary differential equations. Three one step explicit methods and three implicit methods are provided.
+The aim of this project is to develop a library to solve scalar ODEs defined by a general nonlinear function f(x,y). The ODEs will be of the type
 
-## COMPILE
+    y' = f(x,y)
+    
+where y' denote the derivative of y with respect to x. Higher-order ODEs are considered vectorial problems, as any N-order scalar ODE can be transformed into a system of N first-order ODEs, and are not implemented here.
 
-In order to compile the library we have to type
-	
-    ./compile
-	
-This command call the CMake utility that creates a Makefile, that is then used directly to compile the whole library.
+## Numerical Methods
 
-An extensive testsuite is provided and the binary files for all the test are found in 
+The library will contain both explicit and implicit methods, of different orders.
 
-    build/Tests
-	
-Note that CMake reproduce the same tree that we find in the `/src` directory.
+The explicit methods provided are:
+- Explicit Euler
+- 2nd order Runge-Kutta
+- 4th order Runge-Kutta
+
+The implicit methods provided are:
+- Implicit Euler
+- Implicit Midpoint
+- Implicit Trapezoidal
+
+In addition the library contains the following utilities, that are used by ODEs solvers:
+- Newton Method
+
+### Structure
+
+All explicit and implicit methods derive from `Integrator` class, which store the function to integrate and the step length. This class is pure virtual as the function that performs the integration step will be defined in derived classes. `ExplicitIntegrator` and `ImplicitIntegrator` classes differentiate between explicit and implicit methods (implicit methods need also the derivative of f(x,y) in order to use NewtonMethod) but does not implement the pure vistual function step. This function is implemented in further derived class.
+
+A `Solver` class apply an `Integrator` to the problem. The problem is a Cauchy problem, defined by
+
+y' = f(x,y)
+y(x0) = y0
+
+The interval [x0,xN] and the initial value y0 are member of the `Solver` class, that also has a pointer to an `Integrator`. The `Integrator` is applied sequentially to the problem in order to obtain the complete solution over [x0,xN]. The solution (xn,yn) is stored as a two-element `std::array` inside a `std::vector`.
+
+In the case of implicit methods we need to solve a nonlinear equation at each step, therefore the `ImplicitIntegrator` class also contain a `NewtonMethod` class that can solve the nonlinear problem. In order to use the `NewtonMethod`, we also need to know the derivative of the function f(x,y) with respect to y. The nonlinear functions defining the methods are derived from the pure virtual class `Function`, that is used by the `NewtonMethod`. This derived classes are defined in the private section of the implicit integrator, in order to keep a restricted access.
+
+### Analysis
+
+It is useful to study the performance of a different ODE solver in order to decide which one to use to solve a given problem (performance, accuracy, ...). A class that compares numerical solution of a given `Integrator` with the exact analytical solution is provided. This class compute both the numerical solution and the analytical one at the same point and compute the absolute and the relative error between the two
+
+## Compilation
+
+### Requirements
+
+CMake 3.0 or later is required in order to compile the library. A local installation of CMake is easy (http://www.cmake.org/download/). It is possible to change the CMake command inside the ./compile script, in order to find the local binary of CMake.
+
+C++11 standard is used and is therefore foundamental to compile the library.
+
+### Compilation
+
+In order to build the library in Release mode you can type
+
+    mkdir build && cd build
+    cmake --CMAKE_BUILD_TYPE=Release ..
+    make
 
 ## Use
 
-### Provided Tests
-
-`TEST_Solver` and `TEST_AnalyticalSolver` solve a given problem with all the provided integrators, both implicit and explicit (note that eventual exceptions thrown by the integrators when trying to solve the problem are not handled!). The function defining the problem is defined in `scr/Tests/testfunction.h`. It is sufficient to modify this file and recompile in order to specify a new problem.
-All other classes has been tested one-by-one.
+### Testing
 
 ### Personal Use
 
-Create a new `.cpp` file containing the main function in `/scr/Tests` and add it (with the needed dependencies) on the `CMakeLists.txt` file on the same folder, following what is done with the testsuite. It is also possible to create a new folder (that need a new `CMakeLists.txt`) containing the new files. Remember that relative path must be specified for the inclusions.
-
 ## Documentation
 
-In order to create the documentation we have to type
-	
-    ./document
-	
-Documentation contain the GPL license (`docs/license`), a detailed description of the project (`docs/description`) with possible extensions and limitations and Doxygen documentation (`docs/doxygen`).
+The library is documented with Doxygen. To create the documentation just type
+
+    doxygen Doxygen.in
