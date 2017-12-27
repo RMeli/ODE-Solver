@@ -44,9 +44,9 @@ It is useful to study the performance of a different ODE solver in order to deci
 
 ### Requirements
 
-CMake 3.0 or later is required in order to compile the library. A local installation of CMake is easy (http://www.cmake.org/download/). It is possible to change the CMake command inside the ./compile script, in order to find the local binary of CMake.
+CMake 3.0 or later is required in order to compile the library.
 
-C++11 standard is used and is therefore foundamental to compile the library.
+The library is written in C++11 and therefore this version of the standars is enforced in the `CMakeList.txt` file.
 
 ### Compilation
 
@@ -59,8 +59,6 @@ In order to build the library in Release mode you can type
 ## Use
 
 ### Testing
-
-### Personal Use
 
 ## Documentation
 
