@@ -12,9 +12,9 @@ Higher-order ODEs are considered vectorial problems, as any N-order scalar ODE c
 
 This library has been written in 2014 for the class **Programming Concepts in Scientific Computing** at *Ecole Polytechnique Fédérale de Lausanne* and was awarded the maximum grade. However my C++ programming skills further developed in recent years (in particular towards more advanced C++11 concepts) and therefore this library does not reflect anymore my programming style nor the level of my programming skills.
 
-I recognise in this library there are conceptual errors. In particular C-style pointers are sometime handled incorrectly. Many errors can now be easily avoided using C++11 concepts such as `std::unique_ptr`. In the same way, cumbersome C-stype syntax for pinters to functions can be altogether avoided using `std::function`.
+I recognise in this library there are conceptual errors. In particular C-style pointers are sometimes handled incorrectly. Many errors with pointers can now be easily avoided using C++11 concepts, such as smart pointers. In the same way, cumbersome C-stype syntax for pointers to functions can be avoided using `std::function`.
 
-Some small modifications have been made to this project during in recent years, but the source code remained unchanged and therefore still contains design and programming mistakes.
+Some small modifications have been made to this project during in recent years, but the source code remained unchanged. Therefore the library still contains design and programming mistakes.
 
 ## Numerical Methods
 
