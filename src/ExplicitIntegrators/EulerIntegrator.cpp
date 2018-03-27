@@ -19,11 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "EulerIntegrator.h"
 
-EulerIntegrator::EulerIntegrator(double (*ODE_)(double,double), double dx_)
-: ExplicitIntegrator(ODE_,dx_)
-{}
+EulerIntegrator::EulerIntegrator(double (*ODE_)(double, double), double dx_)
+  : ExplicitIntegrator(ODE_, dx_) {}
 
-double EulerIntegrator::step(double xn, double yn)
-{
-    return yn + dx * ODE(xn,yn);
+double EulerIntegrator::step(double xn, double yn) {
+  return yn + dx * ODE(xn, yn);
 }
