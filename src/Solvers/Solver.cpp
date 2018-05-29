@@ -21,8 +21,8 @@
 
 #include "../Utilities/Exception.h"
 
-Solver::Solver(double y0_, double xmin_, double xmax_, Integrator* I_)
-  : y0(y0_), xmin(xmin_), xmax(xmax_), I_ptr(I_) {}
+Solver::Solver(double y0_, double xmin_, double xmax_, std::unique_ptr<Integrator> I_)
+  : y0(y0_), xmin(xmin_), xmax(xmax_), I_ptr(std::move(I_)) {}
 
 void Solver::solve() {
   double dx(I_ptr->get_dx());
@@ -66,8 +66,4 @@ void Solver::print(std::ostream& out) const {
   for (std::array<double, 2> P : solution) {
     out << P[0] << ' ' << P[1] << std::endl;
   }
-}
-
-Solver::~Solver() {
-  delete I_ptr;
 }

@@ -25,6 +25,7 @@
 #include <array>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 class Solver {
 public:
@@ -33,7 +34,7 @@ public:
    Take the initial value y0=y(xmin), the interval of integration and an
    Integrator.
    */
-  Solver(double y0, double xmin_, double xmax_, Integrator* I_);
+  Solver(double y0, double xmin_, double xmax_, std::unique_ptr<Integrator> I_);
 
   Solver(const Solver&) = delete;
   Solver(const Solver&&) = delete;
@@ -67,12 +68,6 @@ public:
    */
   void print(std::ostream& out = std::cout) const;
 
-  //! Destructor.
-  /*!
-   Takes care of the deletion of the integrator.
-   */
-  ~Solver();
-
 protected:
   //! Solution.
   /*!
@@ -104,7 +99,7 @@ protected:
    Integrator. The solver applay this integrator starting from the given initial
    condition on the interval [xmin,xmax].
    */
-  Integrator* I_ptr;
+  std::unique_ptr<Integrator> I_ptr;
 };
 
 #endif

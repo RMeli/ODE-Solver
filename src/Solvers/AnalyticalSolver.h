@@ -24,6 +24,7 @@
 
 #include <array>
 #include <vector>
+#include <memory>
 
 class AnalyticalSolver : public Solver {
 public:
@@ -35,7 +36,7 @@ public:
   AnalyticalSolver(double y0,
                    double xmin_,
                    double xmax_,
-                   Integrator* I_,
+                   std::unique_ptr<Integrator> I_,
                    double (*s_)(double));
 
   AnalyticalSolver(const AnalyticalSolver&) = delete;

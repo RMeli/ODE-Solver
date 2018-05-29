@@ -31,6 +31,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 void print_solution(std::vector<std::array<double, 2>> sol,
                     std::ostream& out = std::cout) {
@@ -45,17 +46,17 @@ int main() {
   double xmax(5);
   double dx(0.5);
 
-  Solver ES(y0, xmin, xmax, new EulerIntegrator(f, dx));
-  Solver RK4S(y0, xmin, xmax, new RungeKutta4(f, dx));
-  Solver RK2S(y0, xmin, xmax, new RungeKutta2(f, dx));
+  Solver ES(y0, xmin, xmax, std::make_unique<EulerIntegrator>(f, dx));
+  Solver RK4S(y0, xmin, xmax, std::make_unique<RungeKutta4>(f, dx));
+  Solver RK2S(y0, xmin, xmax, std::make_unique<RungeKutta2>(f, dx));
 
   ES.solve();
   RK2S.solve();
   RK4S.solve();
 
-  Solver IES(y0, xmin, xmax, new ImplicitEuler(f, dx, df));
-  Solver IMS(y0, xmin, xmax, new ImplicitMidpoint(f, dx, df));
-  Solver ITS(y0, xmin, xmax, new ImplicitTrapezoidal(f, dx, df));
+  Solver IES(y0, xmin, xmax, std::make_unique<ImplicitEuler>(f, dx, df));
+  Solver IMS(y0, xmin, xmax, std::make_unique<ImplicitMidpoint>(f, dx, df));
+  Solver ITS(y0, xmin, xmax, std::make_unique<ImplicitTrapezoidal>(f, dx, df));
 
   IES.solve();
   IMS.solve();

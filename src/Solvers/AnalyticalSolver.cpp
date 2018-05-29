@@ -26,9 +26,9 @@
 AnalyticalSolver::AnalyticalSolver(double y0_,
                                    double xmin_,
                                    double xmax_,
-                                   Integrator* I_,
+                                   std::unique_ptr<Integrator> I_,
                                    double (*s_)(double))
-  : Solver(y0_, xmin_, xmax_, I_), s(s_) {}
+  : Solver(y0_, xmin_, xmax_, std::move(I_)), s(s_) {}
 
 void AnalyticalSolver::solve() {
   double dx(I_ptr->get_dx());
