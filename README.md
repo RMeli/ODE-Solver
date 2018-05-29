@@ -56,7 +56,7 @@ It is useful to study the performance of a different ODE solver in order to deci
 
 The compilation is performed using [CMake](https://cmake.org/). CMake 3.0 or later is required.
 
-The library is written using some C++11 features. This version of the C++ standars is enforced in the `CMakeList.txt` file.
+The library is written using some C++14 features. This version of the C++ standars is enforced in the `CMakeList.txt` file.
 
 ### Compilation
 
