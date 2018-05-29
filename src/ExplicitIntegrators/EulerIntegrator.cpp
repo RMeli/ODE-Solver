@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "EulerIntegrator.h"
 
-EulerIntegrator::EulerIntegrator(double (*ODE_)(double, double), double dx_)
+EulerIntegrator::EulerIntegrator(std::function<double(double,double)> ODE_, double dx_)
   : ExplicitIntegrator(ODE_, dx_) {}
 
 double EulerIntegrator::step(double xn, double yn) {

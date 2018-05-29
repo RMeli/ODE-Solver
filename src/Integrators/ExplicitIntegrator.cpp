@@ -19,6 +19,6 @@
 
 #include "ExplicitIntegrator.h"
 
-ExplicitIntegrator::ExplicitIntegrator(double (*ODE_)(double, double),
+ExplicitIntegrator::ExplicitIntegrator(std::function<double(double,double)> ODE_,
                                        double dx_)
   : Integrator(ODE_, dx_) {}

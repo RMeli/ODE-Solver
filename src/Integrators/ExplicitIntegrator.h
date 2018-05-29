@@ -22,6 +22,8 @@
 
 #include "Integrator.h"
 
+#include <memory>
+
 //! ExplicitIntegrator class.
 /*!
  ExplicitIntegrator class is a virtual class that compute an integration step
@@ -33,7 +35,7 @@ public:
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  ExplicitIntegrator(double (*ODE_)(double, double), double dx_);
+  ExplicitIntegrator(std::function<double(double,double)> ODE_, double dx_);
 
   ExplicitIntegrator(const ExplicitIntegrator&) = delete;
   ExplicitIntegrator(const ExplicitIntegrator&&) = delete;

@@ -20,6 +20,8 @@
 #ifndef INTEGRATOR_H
 #define INTEGRATOR_H
 
+#include <functional>
+
 //! Integrator class.
 /*!
  ExplicitIntegrator class is a virtual class where Implicit and Explicit
@@ -31,7 +33,7 @@ public:
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  Integrator(double (*ODE_)(double, double), double dx_);
+  Integrator(std::function<double(double,double)> ODE_, double dx_);
 
   Integrator(const Integrator&) = delete;
   Integrator(const Integrator&&) = delete;
@@ -67,7 +69,7 @@ protected:
    This function effectively define the ODE to solve. Is the function f(x,y)
    that defines the equation y'=f(x,y).
    */
-  double (*ODE)(double, double);
+  std::function<double(double,double)> ODE;
 
   //! Step lenght.
   double dx;

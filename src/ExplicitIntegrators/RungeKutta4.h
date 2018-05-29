@@ -32,7 +32,7 @@ public:
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  RungeKutta4(double (*ODE_)(double, double), double dx_);
+  RungeKutta4(std::function<double(double,double)> ODE_, double dx_);
 
   RungeKutta4(const RungeKutta4&) = delete;
   RungeKutta4(const RungeKutta4&&) = delete;

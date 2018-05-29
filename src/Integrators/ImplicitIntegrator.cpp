@@ -19,7 +19,7 @@
 
 #include "ImplicitIntegrator.h"
 
-ImplicitIntegrator::ImplicitIntegrator(double (*ODE_)(double, double),
+ImplicitIntegrator::ImplicitIntegrator(std::function<double(double,double)> ODE_,
                                        double dx_,
-                                       double (*dODE_)(double, double))
+                                       std::function<double(double,double)> dODE_)
   : Integrator(ODE_, dx_), dODE(dODE_) {}
