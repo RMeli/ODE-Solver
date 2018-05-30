@@ -20,30 +20,23 @@
 #include "ImplicitEuler.h"
 #include "../NumericalMethods/NewtonMethod.h"
 
-ImplicitEuler::ImplicitEuler(double (*ODE_)(double, double),
+ImplicitEuler::ImplicitEuler(std::function<double(double,double)> ODE_,
                              double dx_,
-                             double (*dODE_)(double, double))
-  : ImplicitIntegrator(ODE_, dx_, dODE_), IEF(new IEFunction(this)) {}
+                             std::function<double(double,double)> dODE_)
+  : ImplicitIntegrator(ODE_, dx_, dODE_) {}
 
 double ImplicitEuler::step(double xn, double yn) {
   xnew = xn + dx;
   yold = yn;
 
-  NewtonMethod NM(yold, IEF);
+  NewtonMethod NM(yold,
+                  [this](double yn){
+                    return yn - dx * ODE(xnew, yn) - yold;
+                  },
+                  [this](double yn){
+                    return 1 - dx * dODE(xnew, yn);
+                  }
+                  );
 
   return NM.solve();
-}
-
-ImplicitEuler::IEFunction::IEFunction(ImplicitEuler* IE_) : IE(IE_) {}
-
-double ImplicitEuler::IEFunction::f(double yn) {
-  return yn - IE->dx * IE->ODE(IE->xnew, yn) - IE->yold;
-}
-
-double ImplicitEuler::IEFunction::df(double yn) {
-  return 1 - IE->dx * IE->dODE(IE->xnew, yn);
-}
-
-ImplicitEuler::~ImplicitEuler() {
-  delete IEF;
 }

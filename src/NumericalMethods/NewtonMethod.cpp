@@ -24,8 +24,8 @@
 #include <cmath>
 #include <stdexcept>
 
-NewtonMethod::NewtonMethod(double y0_, Function* F_, double tol_, int maxiter_)
-  : F(F_), y0(y0_), tol(tol_), maxiter(maxiter_) {}
+NewtonMethod::NewtonMethod(double y0_, std::function<double(double)> f_, std::function<double(double)> df_, double tol_, int maxiter_)
+  : y0(y0_), f(f_), df(df_), tol(tol_), maxiter(maxiter_) {}
 
 double NewtonMethod::solve() const {
   double yold(y0);
@@ -43,13 +43,13 @@ double NewtonMethod::solve() const {
 
     yold = ynew;
 
-    derivative = F->df(yold);
+    derivative = df(yold);
 
     if (std::abs(derivative) < 1e-30) {
       throw std::overflow_error("Divide by zero exception.");
     }
 
-    ynew = yold - F->f(yold) / derivative;
+    ynew = yold - f(yold) / derivative;
 
     iter++;
 
@@ -58,9 +58,10 @@ double NewtonMethod::solve() const {
   return ynew;
 }
 
-void NewtonMethod::set(double y0_, Function* F_, double tol_, int maxiter_) {
+void NewtonMethod::set(double y0_, std::function<double(double)> f_, std::function<double(double)> df_, double tol_, int maxiter_) {
   y0 = y0_;
-  F = F_;
+  f = f_;
+  df = df_;
   tol = tol_;
   maxiter = maxiter_;
 }

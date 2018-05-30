@@ -20,7 +20,7 @@
 #ifndef NEWTONMETHOD_H
 #define NEWTONMETHOD_H
 
-#include "../Utilities/Function.h"
+#include <functional>
 
 //! NewtonMethod class.
 /*!
@@ -40,7 +40,8 @@ public:
    starting point is not choosen wisely) are optional parameters.
    */
   NewtonMethod(double y0_,
-               Function* F,
+               std::function<double(double)> f_,
+               std::function<double(double)> df_,
                double tol_ = 1e-6,
                int maxiter_ = 1000);
 
@@ -60,23 +61,27 @@ public:
    reset the method. This allow us to use the same instance of the Newton method
    with different functions.
    */
-  void set(double y0_, Function* F, double tol_ = 1e-6, int maxiter_ = 1000);
+  void set(double y0_, std::function<double(double)> f, std::function<double(double)> df_, double tol_ = 1e-6, int maxiter_ = 1000);
 
 private:
-  //! Function.
-  /*!
-   A derived class of the class Function (that is pure virtual) is stored here.
-   This contains at least the function f(x) and its derivative f'(x) nedeed to
-   solve the problem.
-   */
-  Function* F;
-
   //! Starting point.
   /*!
    To ensure convergence (that is normally fast) it is recomended to choose a
    starting point close to the (guessed) solution.
    */
   double y0;
+  
+  //! Function.
+  /*!
+   This contains the function f(x).
+   */
+  std::function<double(double)> f;
+  
+  //! Function derivative.
+  /*!
+   This contains the derivative f'(x) of the function f(x).
+   */
+  std::function<double(double)> df;
 
   //! Tolerance.
   /*!
