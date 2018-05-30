@@ -37,7 +37,7 @@ public:
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  EulerIntegrator(std::function<double(double,double)> ODE_, double dx_);
+  EulerIntegrator(std::function<double(double, double)> ODE_, double dx_);
 
   EulerIntegrator(const EulerIntegrator&) = delete;
   EulerIntegrator(const EulerIntegrator&&) = delete;

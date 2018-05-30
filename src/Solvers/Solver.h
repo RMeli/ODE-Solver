@@ -24,8 +24,8 @@
 
 #include <array>
 #include <iostream>
-#include <vector>
 #include <memory>
+#include <vector>
 
 class Solver {
 public:

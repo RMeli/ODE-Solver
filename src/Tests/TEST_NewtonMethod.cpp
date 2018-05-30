@@ -24,12 +24,14 @@
 int main() {
   double y0(1);
 
-  NewtonMethod NM(y0, [](double y){return y * y - 2;}, [](double y){return 2 * y;});
+  NewtonMethod NM(
+      y0, [](double y) { return y * y - 2; }, [](double y) { return 2 * y; });
 
   std::cout << NM.solve() << std::endl;
 
   // Change the function to solve
-  NM.set(y0, [](double y){return y * y - 3;}, [](double y){ return 2 * y; });
+  NM.set(
+      y0, [](double y) { return y * y - 3; }, [](double y) { return 2 * y; });
 
   std::cout << NM.solve() << std::endl;
 

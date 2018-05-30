@@ -21,7 +21,10 @@
 
 #include "../Utilities/Exception.h"
 
-Solver::Solver(double y0_, double xmin_, double xmax_, std::unique_ptr<Integrator> I_)
+Solver::Solver(double y0_,
+               double xmin_,
+               double xmax_,
+               std::unique_ptr<Integrator> I_)
   : y0(y0_), xmin(xmin_), xmax(xmax_), I_ptr(std::move(I_)) {}
 
 void Solver::solve() {

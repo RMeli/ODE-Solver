@@ -40,9 +40,9 @@ public:
    The constructor also create an instance of the IEFunction class, by using the
    this pointer to generate a link between the IEFunction class and himself.
    */
-  ImplicitEuler(std::function<double(double,double)> ODE_,
+  ImplicitEuler(std::function<double(double, double)> ODE_,
                 double dx_,
-                std::function<double(double,double)> dODE_);
+                std::function<double(double, double)> dODE_);
 
   ImplicitEuler(const ImplicitEuler&) = delete;
   ImplicitEuler(const ImplicitEuler&&) = delete;

@@ -19,7 +19,7 @@
 
 #include "Integrator.h"
 
-Integrator::Integrator(std::function<double(double,double)> ODE_, double dx_)
+Integrator::Integrator(std::function<double(double, double)> ODE_, double dx_)
   : ODE(ODE_), dx(dx_) {}
 
 double Integrator::get_dx() const {

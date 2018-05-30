@@ -24,7 +24,11 @@
 #include <cmath>
 #include <stdexcept>
 
-NewtonMethod::NewtonMethod(double y0_, std::function<double(double)> f_, std::function<double(double)> df_, double tol_, int maxiter_)
+NewtonMethod::NewtonMethod(double y0_,
+                           std::function<double(double)> f_,
+                           std::function<double(double)> df_,
+                           double tol_,
+                           int maxiter_)
   : y0(y0_), f(f_), df(df_), tol(tol_), maxiter(maxiter_) {}
 
 double NewtonMethod::solve() const {
@@ -58,7 +62,11 @@ double NewtonMethod::solve() const {
   return ynew;
 }
 
-void NewtonMethod::set(double y0_, std::function<double(double)> f_, std::function<double(double)> df_, double tol_, int maxiter_) {
+void NewtonMethod::set(double y0_,
+                       std::function<double(double)> f_,
+                       std::function<double(double)> df_,
+                       double tol_,
+                       int maxiter_) {
   y0 = y0_;
   f = f_;
   df = df_;

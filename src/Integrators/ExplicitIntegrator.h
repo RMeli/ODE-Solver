@@ -35,7 +35,7 @@ public:
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  ExplicitIntegrator(std::function<double(double,double)> ODE_, double dx_);
+  ExplicitIntegrator(std::function<double(double, double)> ODE_, double dx_);
 
   ExplicitIntegrator(const ExplicitIntegrator&) = delete;
   ExplicitIntegrator(const ExplicitIntegrator&&) = delete;

@@ -20,18 +20,22 @@
 #include "ImplicitTrapezoidal.h"
 #include "../NumericalMethods/NewtonMethod.h"
 
-ImplicitTrapezoidal::ImplicitTrapezoidal(std::function<double(double,double)> ODE_,
-                                         double dx_,
-                                         std::function<double(double,double)> dODE_)
-  : ImplicitIntegrator(ODE_, dx_, dODE_){}
+ImplicitTrapezoidal::ImplicitTrapezoidal(
+    std::function<double(double, double)> ODE_,
+    double dx_,
+    std::function<double(double, double)> dODE_)
+  : ImplicitIntegrator(ODE_, dx_, dODE_) {}
 
 double ImplicitTrapezoidal::step(double xn, double yn) {
   xnew = xn + dx;
   yold = yn;
 
   NewtonMethod NM(yold,
-                  [this](double yn){return yn - yold - 0.5 * dx * (ODE(xnew - dx, yold) + ODE(xnew, yn));},
-  [this](double yn){return 1 - 0.5 * dx * dODE(xnew, yn);});
+                  [this](double yn) {
+                    return yn - yold -
+                           0.5 * dx * (ODE(xnew - dx, yold) + ODE(xnew, yn));
+                  },
+                  [this](double yn) { return 1 - 0.5 * dx * dODE(xnew, yn); });
 
   return NM.solve();
 }

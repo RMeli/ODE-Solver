@@ -40,9 +40,9 @@ public:
    The constructor also create an instance of the ITFunction class, by using the
    this pointer to generate a link between the ITFunction class and himself.
    */
-  ImplicitTrapezoidal(std::function<double(double,double)> ODE_,
+  ImplicitTrapezoidal(std::function<double(double, double)> ODE_,
                       double dx_,
-                      std::function<double(double,double)> dODE_);
+                      std::function<double(double, double)> dODE_);
 
   ImplicitTrapezoidal(const ImplicitTrapezoidal&) = delete;
   ImplicitTrapezoidal(const ImplicitTrapezoidal&&) = delete;

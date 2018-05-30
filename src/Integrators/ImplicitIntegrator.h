@@ -37,9 +37,9 @@ public:
   /*!
    Take the ODE to integrate, its derivative and the step lenght as arguemnts.
    */
-  ImplicitIntegrator(std::function<double(double,double)> ODE_,
+  ImplicitIntegrator(std::function<double(double, double)> ODE_,
                      double dx_,
-                     std::function<double(double,double)> dODE_);
+                     std::function<double(double, double)> dODE_);
 
   ImplicitIntegrator(const ImplicitIntegrator&) = delete;
   ImplicitIntegrator(const ImplicitIntegrator&&) = delete;
@@ -52,7 +52,7 @@ protected:
    an implicit method that use NewtonMethod class to solve the nonlinear
    function defining the scheme.
    */
-  std::function<double(double,double)> dODE;
+  std::function<double(double, double)> dODE;
 
   //! xnew = xold + dx.
   /*!

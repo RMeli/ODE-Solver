@@ -30,8 +30,8 @@
 #include <array>
 #include <fstream>
 #include <iostream>
-#include <vector>
 #include <memory>
+#include <vector>
 
 void print_solution(std::vector<std::array<double, 2>> sol,
                     std::ostream& out = std::cout) {

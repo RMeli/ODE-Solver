@@ -29,8 +29,8 @@
 
 #include <array>
 #include <iostream>
-#include <vector>
 #include <memory>
+#include <vector>
 
 void print_solution(std::vector<std::array<double, 2>> sol,
                     std::vector<std::array<double, 3>> sol_a,
@@ -48,17 +48,23 @@ int main() {
   double xmax(5);
   double dx(0.5);
 
-  AnalyticalSolver ES(y0, xmin, xmax, std::make_unique<EulerIntegrator>(f, dx), s);
-  AnalyticalSolver RK4S(y0, xmin, xmax, std::make_unique<RungeKutta4>(f, dx), s);
-  AnalyticalSolver RK2S(y0, xmin, xmax, std::make_unique<RungeKutta2>(f, dx), s);
+  AnalyticalSolver ES(
+      y0, xmin, xmax, std::make_unique<EulerIntegrator>(f, dx), s);
+  AnalyticalSolver RK4S(
+      y0, xmin, xmax, std::make_unique<RungeKutta4>(f, dx), s);
+  AnalyticalSolver RK2S(
+      y0, xmin, xmax, std::make_unique<RungeKutta2>(f, dx), s);
 
   ES.solve();
   RK2S.solve();
   RK4S.solve();
-  
-  AnalyticalSolver IES(y0, xmin, xmax, std::make_unique<ImplicitEuler>(f, dx, df), s);
-  AnalyticalSolver IMS(y0, xmin, xmax, std::make_unique<ImplicitMidpoint>(f, dx, df), s);
-  AnalyticalSolver ITS(y0, xmin, xmax, std::make_unique<ImplicitTrapezoidal>(f, dx, df), s);
+
+  AnalyticalSolver IES(
+      y0, xmin, xmax, std::make_unique<ImplicitEuler>(f, dx, df), s);
+  AnalyticalSolver IMS(
+      y0, xmin, xmax, std::make_unique<ImplicitMidpoint>(f, dx, df), s);
+  AnalyticalSolver ITS(
+      y0, xmin, xmax, std::make_unique<ImplicitTrapezoidal>(f, dx, df), s);
 
   IES.solve();
   IMS.solve();

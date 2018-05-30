@@ -19,7 +19,7 @@
 
 #include "RungeKutta2.h"
 
-RungeKutta2::RungeKutta2(std::function<double(double,double)> ODE_, double dx_)
+RungeKutta2::RungeKutta2(std::function<double(double, double)> ODE_, double dx_)
   : ExplicitIntegrator(ODE_, dx_) {}
 
 double RungeKutta2::step(double xn, double yn) {

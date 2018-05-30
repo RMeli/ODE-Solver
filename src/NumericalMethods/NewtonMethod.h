@@ -61,7 +61,11 @@ public:
    reset the method. This allow us to use the same instance of the Newton method
    with different functions.
    */
-  void set(double y0_, std::function<double(double)> f, std::function<double(double)> df_, double tol_ = 1e-6, int maxiter_ = 1000);
+  void set(double y0_,
+           std::function<double(double)> f,
+           std::function<double(double)> df_,
+           double tol_ = 1e-6,
+           int maxiter_ = 1000);
 
 private:
   //! Starting point.
@@ -70,13 +74,13 @@ private:
    starting point close to the (guessed) solution.
    */
   double y0;
-  
+
   //! Function.
   /*!
    This contains the function f(x).
    */
   std::function<double(double)> f;
-  
+
   //! Function derivative.
   /*!
    This contains the derivative f'(x) of the function f(x).

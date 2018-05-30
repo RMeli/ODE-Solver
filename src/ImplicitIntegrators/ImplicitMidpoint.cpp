@@ -20,9 +20,9 @@
 #include "ImplicitMidpoint.h"
 #include "../NumericalMethods/NewtonMethod.h"
 
-ImplicitMidpoint::ImplicitMidpoint(std::function<double(double,double)> ODE_,
+ImplicitMidpoint::ImplicitMidpoint(std::function<double(double, double)> ODE_,
                                    double dx_,
-                                   std::function<double(double,double)> dODE_)
+                                   std::function<double(double, double)> dODE_)
   : ImplicitIntegrator(ODE_, dx_, dODE_) {}
 
 double ImplicitMidpoint::step(double xn, double yn) {
@@ -30,8 +30,12 @@ double ImplicitMidpoint::step(double xn, double yn) {
   yold = yn;
 
   NewtonMethod NM(yold,
-  [this](double yn){return yn - yold - dx * ODE(xnew, 0.5 * (yold + yn));},
-  [this](double yn){return 1 - dx * dODE(xnew, 0.5 * (yold + yn)) * 0.5;});
+                  [this](double yn) {
+                    return yn - yold - dx * ODE(xnew, 0.5 * (yold + yn));
+                  },
+                  [this](double yn) {
+                    return 1 - dx * dODE(xnew, 0.5 * (yold + yn)) * 0.5;
+                  });
 
   return NM.solve();
 }

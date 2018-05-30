@@ -23,8 +23,8 @@
 #include "Solver.h"
 
 #include <array>
-#include <vector>
 #include <memory>
+#include <vector>
 
 class AnalyticalSolver : public Solver {
 public:

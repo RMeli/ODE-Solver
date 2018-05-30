@@ -20,9 +20,9 @@
 #include "ImplicitEuler.h"
 #include "../NumericalMethods/NewtonMethod.h"
 
-ImplicitEuler::ImplicitEuler(std::function<double(double,double)> ODE_,
+ImplicitEuler::ImplicitEuler(std::function<double(double, double)> ODE_,
                              double dx_,
-                             std::function<double(double,double)> dODE_)
+                             std::function<double(double, double)> dODE_)
   : ImplicitIntegrator(ODE_, dx_, dODE_) {}
 
 double ImplicitEuler::step(double xn, double yn) {
@@ -30,13 +30,8 @@ double ImplicitEuler::step(double xn, double yn) {
   yold = yn;
 
   NewtonMethod NM(yold,
-                  [this](double yn){
-                    return yn - dx * ODE(xnew, yn) - yold;
-                  },
-                  [this](double yn){
-                    return 1 - dx * dODE(xnew, yn);
-                  }
-                  );
+                  [this](double yn) { return yn - dx * ODE(xnew, yn) - yold; },
+                  [this](double yn) { return 1 - dx * dODE(xnew, yn); });
 
   return NM.solve();
 }

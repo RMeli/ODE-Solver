@@ -33,7 +33,7 @@ public:
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  Integrator(std::function<double(double,double)> ODE_, double dx_);
+  Integrator(std::function<double(double, double)> ODE_, double dx_);
 
   Integrator(const Integrator&) = delete;
   Integrator(const Integrator&&) = delete;
@@ -69,7 +69,7 @@ protected:
    This function effectively define the ODE to solve. Is the function f(x,y)
    that defines the equation y'=f(x,y).
    */
-  std::function<double(double,double)> ODE;
+  std::function<double(double, double)> ODE;
 
   //! Step lenght.
   double dx;
