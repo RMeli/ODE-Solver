@@ -20,6 +20,8 @@
 #ifndef NEWTONMETHOD_H
 #define NEWTONMETHOD_H
 
+#include <cmath>
+#include <stdexcept>
 #include <functional>
 
 //! NewtonMethod class.
@@ -27,6 +29,7 @@
  NewtonMethod class solve the equation f(x) = 0, finding x0 such that f(x0) = 0
  */
 
+template <typename T>
 class NewtonMethod {
 public:
   //! Constructor.
@@ -39,9 +42,9 @@ public:
    solution, but can have a non converging or diverging behaviour if the
    starting point is not choosen wisely) are optional parameters.
    */
-  NewtonMethod(double y0_,
-               std::function<double(double)> f_,
-               std::function<double(double)> df_,
+  NewtonMethod(T y0_,
+               std::function<double(T)> f_,
+               std::function<T(T)> df_,
                double tol_ = 1e-6,
                int maxiter_ = 1000);
 
@@ -53,7 +56,7 @@ public:
   /*!
    This function effectively solve the problem and return x0 such that f(x0)=0
    */
-  double solve() const;
+  T solve() const;
 
   //! Set/reset the method.
   /*!
@@ -61,9 +64,9 @@ public:
    reset the method. This allow us to use the same instance of the Newton method
    with different functions.
    */
-  void set(double y0_,
-           std::function<double(double)> f,
-           std::function<double(double)> df_,
+  void set(T y0_,
+           std::function<double(T)> f,
+           std::function<T(T)> df_,
            double tol_ = 1e-6,
            int maxiter_ = 1000);
 
@@ -73,19 +76,19 @@ private:
    To ensure convergence (that is normally fast) it is recomended to choose a
    starting point close to the (guessed) solution.
    */
-  double y0;
+  T y0;
 
   //! Function.
   /*!
    This contains the function f(x).
    */
-  std::function<double(double)> f;
+  std::function<double(T)> f;
 
   //! Function derivative.
   /*!
    This contains the derivative f'(x) of the function f(x).
    */
-  std::function<double(double)> df;
+  std::function<T(T)> df;
 
   //! Tolerance.
   /*!
@@ -102,5 +105,58 @@ private:
    */
   int maxiter;
 };
+
+template<typename T>
+NewtonMethod<T>::NewtonMethod(T y0_,
+                              std::function<double(T)> f_,
+                              std::function<T(T)> df_,
+                              double tol_,
+                              int maxiter_)
+    : y0(y0_), f(f_), df(df_), tol(tol_), maxiter(maxiter_) {}
+
+template<typename T>
+T NewtonMethod<T>::solve() const {
+  T yold(y0);
+  T ynew(y0);
+  
+  T derivative(0);
+  
+  int iter(0);
+  
+  do {
+    if (iter > maxiter) {
+      throw std::overflow_error(
+          "Maximum iterations reached. Convergence not reached.");
+    }
+    
+    yold = ynew;
+    
+    derivative = df(yold);
+    
+    if (std::abs(derivative) < 1e-30) {
+      throw std::overflow_error("Divide by zero exception.");
+    }
+    
+    ynew = yold - f(yold) / derivative;
+    
+    iter++;
+    
+  } while (std::abs(ynew - yold) > tol);
+  
+  return ynew;
+}
+
+template<typename T>
+void NewtonMethod<T>::set(T y0_,
+                          std::function<double(T)> f_,
+                          std::function<T(T)> df_,
+                          double tol_,
+                          int maxiter_) {
+  y0 = y0_;
+  f = f_;
+  df = df_;
+  tol = tol_;
+  maxiter = maxiter_;
+}
 
 #endif

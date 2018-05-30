@@ -29,7 +29,7 @@ double ImplicitMidpoint::step(double xn, double yn) {
   xnew = xn + 0.5 * dx;
   yold = yn;
 
-  NewtonMethod NM(yold,
+  NewtonMethod<double> NM(yold,
                   [this](double yn) {
                     return yn - yold - dx * ODE(xnew, 0.5 * (yold + yn));
                   },

@@ -29,7 +29,7 @@ double ImplicitEuler::step(double xn, double yn) {
   xnew = xn + dx;
   yold = yn;
 
-  NewtonMethod NM(yold,
+  NewtonMethod<double> NM(yold,
                   [this](double yn) { return yn - dx * ODE(xnew, yn) - yold; },
                   [this](double yn) { return 1 - dx * dODE(xnew, yn); });
 

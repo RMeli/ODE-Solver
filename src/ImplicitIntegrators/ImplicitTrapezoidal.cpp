@@ -30,7 +30,7 @@ double ImplicitTrapezoidal::step(double xn, double yn) {
   xnew = xn + dx;
   yold = yn;
 
-  NewtonMethod NM(yold,
+  NewtonMethod<double> NM(yold,
                   [this](double yn) {
                     return yn - yold -
                            0.5 * dx * (ODE(xnew - dx, yold) + ODE(xnew, yn));

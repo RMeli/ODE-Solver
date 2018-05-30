@@ -24,7 +24,7 @@
 int main() {
   double y0(1);
 
-  NewtonMethod NM(
+  NewtonMethod<double> NM(
       y0, [](double y) { return y * y - 2; }, [](double y) { return 2 * y; });
 
   std::cout << NM.solve() << std::endl;
