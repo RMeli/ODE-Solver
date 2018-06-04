@@ -12,6 +12,18 @@ add_subdirectory(src/Solvers)
 add_subdirectory(src/NumericalMethods)
 add_subdirectory(src/Tests)
 
+option(COVERAGE "Use code coverage if compiler is Clang" OFF)
+if(COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CLANG_COVERAGE_COMPILE_FLAGS "--coverage -g -O0")
+    set(CLANG_COVERAGE_LINK_FLAGS    "--coverage")
+
+    message("-- Code coverage enabled: ${CLANG_COVERAGE_COMPILE_FLAGS}")
+
+    set( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${CLANG_COVERAGE_COMPILE_FLAGS}" )
+    set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CLANG_COVERAGE_COMPILE_FLAGS}" )
+    set( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${CLANG_COVERAGE_LINK_FLAGS}" )
+endif()
+
 enable_testing()
 
 add_test(UNITTEST_NewtonMethod bin/TEST_NewtonMethod)
