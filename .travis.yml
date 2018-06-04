@@ -1,0 +1,64 @@
+language: cpp
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9.3
+      compiler: clang
+      env:
+      - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    - os: osx
+      osx_image: xcode9.2
+      compiler: clang
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    - os: osx
+      osx_image: xcode7.3
+      compiler: clang
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    - os: osx
+      osx_image: xcode9.2
+      compiler: gcc
+      env:
+        - MATRIX_EVAL="brew install gcc@8 && CC=gcc-8 && CXX=g++-8"
+
+    - os: osx
+      osx_image: xcode9.2
+      compiler: gcc
+      env:
+        - MATRIX_EVAL="brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
+
+    - os: osx
+      osx_image: xcode8.3
+      compiler: gcc
+      env:
+        - MATRIX_EVAL="brew install gcc@6 && CC=gcc-6 && CXX=g++-6"
+
+    - os: osx
+      osx_image: xcode7.3
+      compiler: gcc
+      env:
+        - MATRIX_EVAL="brew install gcc@5 && CC=gcc-5 && CXX=g++-5"
+
+before_install:
+  - bash .travis/before_install.sh
+  - eval "${MATRIX_EVAL}"
+
+install:
+  - bash .travis/install.sh
+
+script:
+  - bash .travis/build.sh
+
+after_success:
+- bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
