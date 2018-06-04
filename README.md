@@ -1,5 +1,10 @@
 # Nonlinear First Order Ordinary Differential Equations 
 
+[![Build Status](https://travis-ci.org/RMeli/ODE-Solver.svg?branch=master)](https://travis-ci.org/RMeli/ODE-Solver)
+[![codecov](https://codecov.io/gh/RMeli/ODE-Solver/branch/master/graph/badge.svg)](https://codecov.io/gh/RMeli/ODE-Solver)
+[![GitHub top language](https://img.shields.io/github/languages/top/RMeli/ODE-Solver.svg)](https://isocpp.org/)
+[![GitHub license](https://img.shields.io/github/license/RMeli/ODE-Solver.svg)](https://github.com/RMeli/ODE-Solver/blob/master/LICENSE)
+
 The aim of this project is to develop a library to solve scalar first-order ODEs defined by a general nonlinear function f(x,y). Therefore, the ODEs that this library can solve are of the type
 
     y' = f(x,y)
