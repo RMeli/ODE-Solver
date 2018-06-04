@@ -24,14 +24,13 @@
 
 #include "../NumericalMethods/NewtonMethod.h"
 
-
 #include <functional>
 
 //! ImplicitMidpoint class.
 /*!
  Perform one step of the implicit midpoint method.
  */
-template <typename T>
+template<typename T>
 class ImplicitMidpoint : public ImplicitIntegrator<T> {
 public:
   //! Constructor.
@@ -52,8 +51,8 @@ public:
    obviosuly corresponds to xn+dx.
    */
   T step(double xn, T yn);
- 
- private:
+
+private:
   using Integrator<T>::ODE;
   using Integrator<T>::dx;
   using ImplicitIntegrator<T>::dODE;
@@ -61,26 +60,22 @@ public:
   using ImplicitIntegrator<T>::yold;
 };
 
-
-template <typename T>
+template<typename T>
 ImplicitMidpoint<T>::ImplicitMidpoint(std::function<T(double, T)> ODE_,
-                                   double dx_,
-                                   std::function<T(double, T)> dODE_)
-    : ImplicitIntegrator<T>(ODE_, dx_, dODE_) {}
-    
-template <typename T>
+                                      double dx_,
+                                      std::function<T(double, T)> dODE_)
+  : ImplicitIntegrator<T>(ODE_, dx_, dODE_) {}
+
+template<typename T>
 T ImplicitMidpoint<T>::step(double xn, T yn) {
   xnew = xn + 0.5 * dx;
   yold = yn;
-  
-  NewtonMethod<T> NM(yold,
-                          [this](T yn) {
-                            return yn - yold - dx * ODE(xnew, 0.5 * (yold + yn));
-                          },
-                          [this](T yn) {
-                            return 1 - dx * dODE(xnew, 0.5 * (yold + yn)) * 0.5;
-                          });
-  
+
+  NewtonMethod<T> NM(
+      yold,
+      [this](T yn) { return yn - yold - dx * ODE(xnew, 0.5 * (yold + yn)); },
+      [this](T yn) { return 1 - dx * dODE(xnew, 0.5 * (yold + yn)) * 0.5; });
+
   return NM.solve();
 }
 

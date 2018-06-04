@@ -34,12 +34,13 @@
 
 template<typename T>
 void print_solution(std::vector<std::pair<double, T>> sol,
-                    std::vector<std::tuple<T,T,T>> sol_a,
+                    std::vector<std::tuple<T, T, T>> sol_a,
                     std::ostream& out = std::cout) {
   for (unsigned int i(0); i < sol.size(); i++) {
     // xn, yn, s(xn), abs(yn-s(xn)), abs((yn-s(xn))/s(xn))
-    out << sol[i].first << ' ' << sol[i].second << ' ' << std::get<0>(sol_a[i]) << ' '
-        << std::get<1>(sol_a[i]) << ' ' << std::get<2>(sol_a[i]) << std::endl;
+    out << sol[i].first << ' ' << sol[i].second << ' ' << std::get<0>(sol_a[i])
+        << ' ' << std::get<1>(sol_a[i]) << ' ' << std::get<2>(sol_a[i])
+        << std::endl;
   }
 }
 
@@ -65,7 +66,11 @@ int main() {
   AnalyticalSolver<double> IMS(
       y0, xmin, xmax, std::make_unique<ImplicitMidpoint<double>>(f, dx, df), s);
   AnalyticalSolver<double> ITS(
-      y0, xmin, xmax, std::make_unique<ImplicitTrapezoidal<double>>(f, dx, df), s);
+      y0,
+      xmin,
+      xmax,
+      std::make_unique<ImplicitTrapezoidal<double>>(f, dx, df),
+      s);
 
   IES.solve();
   IMS.solve();

@@ -21,15 +21,15 @@
 #define NEWTONMETHOD_H
 
 #include <cmath>
-#include <stdexcept>
 #include <functional>
+#include <stdexcept>
 
 //! NewtonMethod class.
 /*!
  NewtonMethod class solve the equation f(x) = 0, finding x0 such that f(x0) = 0
  */
 
-template <typename T>
+template<typename T>
 class NewtonMethod {
 public:
   //! Constructor.
@@ -112,37 +112,37 @@ NewtonMethod<T>::NewtonMethod(T y0_,
                               std::function<T(T)> df_,
                               double tol_,
                               int maxiter_)
-    : y0(y0_), f(f_), df(df_), tol(tol_), maxiter(maxiter_) {}
+  : y0(y0_), f(f_), df(df_), tol(tol_), maxiter(maxiter_) {}
 
 template<typename T>
 T NewtonMethod<T>::solve() const {
   T yold(y0);
   T ynew(y0);
-  
+
   T derivative(0);
-  
+
   int iter(0);
-  
+
   do {
     if (iter > maxiter) {
       throw std::overflow_error(
           "Maximum iterations reached. Convergence not reached.");
     }
-    
+
     yold = ynew;
-    
+
     derivative = df(yold);
-    
+
     if (std::abs(derivative) < 1e-30) {
       throw std::overflow_error("Divide by zero exception.");
     }
-    
+
     ynew = yold - f(yold) / derivative;
-    
+
     iter++;
-    
+
   } while (std::abs(ynew - yold) > tol);
-  
+
   return ynew;
 }
 

@@ -31,7 +31,7 @@
  an implicit method. For an implicit method we have to solve a nonlinear
  function at each steps, therefore also the second derivative is needed.
  */
-template <typename T>
+template<typename T>
 class ImplicitIntegrator : public Integrator<T> {
 public:
   //! Constructor.
@@ -69,11 +69,10 @@ protected:
   T yold = 0;
 };
 
-template <typename T>
-ImplicitIntegrator<T>::ImplicitIntegrator(
-    std::function<T(double, T)> ODE_,
-    double dx_,
-    std::function<T(double, T)> dODE_)
-    : Integrator<T>(ODE_, dx_), dODE(dODE_) {}
+template<typename T>
+ImplicitIntegrator<T>::ImplicitIntegrator(std::function<T(double, T)> ODE_,
+                                          double dx_,
+                                          std::function<T(double, T)> dODE_)
+  : Integrator<T>(ODE_, dx_), dODE(dODE_) {}
 
 #endif

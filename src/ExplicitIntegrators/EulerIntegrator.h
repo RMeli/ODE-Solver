@@ -31,7 +31,7 @@
  stability. This method should be used with small step size (pay attention to
  rounding errors) and only for comparaison purposes.
  */
-template <typename T>
+template<typename T>
 class EulerIntegrator : public ExplicitIntegrator<T> {
 public:
   //! Constructor.
@@ -50,18 +50,18 @@ public:
    obviosuly corresponds to xn+dx.
    */
   T step(double xn, T yn);
-  
-  private:
+
+private:
   using Integrator<T>::ODE;
   using Integrator<T>::dx;
 };
 
-template <typename T>
+template<typename T>
 EulerIntegrator<T>::EulerIntegrator(std::function<T(double, T)> ODE_,
-                                 double dx_)
-    : ExplicitIntegrator<T>(ODE_, dx_) {}
+                                    double dx_)
+  : ExplicitIntegrator<T>(ODE_, dx_) {}
 
-template <typename T>
+template<typename T>
 T EulerIntegrator<T>::step(double xn, T yn) {
   return yn + dx * ODE(xn, yn);
 }

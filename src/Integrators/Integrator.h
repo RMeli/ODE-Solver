@@ -27,7 +27,7 @@
  ExplicitIntegrator class is a virtual class where Implicit and Explicit
  Integrators derive
  */
-template <typename T>
+template<typename T>
 class Integrator {
 public:
   //! Constructor.
@@ -62,7 +62,7 @@ public:
   /*!
    Virtual classes needs virtual destructor in order to be destroyed properly.
    */
-  virtual ~Integrator() {};
+  virtual ~Integrator(){};
 
 protected:
   //! ODE.
@@ -76,11 +76,11 @@ protected:
   double dx;
 };
 
-template <typename T>
+template<typename T>
 Integrator<T>::Integrator(std::function<T(double, T)> ODE_, double dx_)
-    : ODE(ODE_), dx(dx_) {}
+  : ODE(ODE_), dx(dx_) {}
 
-template <typename T>
+template<typename T>
 double Integrator<T>::get_dx() const {
   return dx;
 }

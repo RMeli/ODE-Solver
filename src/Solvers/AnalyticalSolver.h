@@ -25,12 +25,12 @@
 #include "../Utilities/Exception.h"
 
 #include <array>
+#include <cmath>
+#include <functional>
 #include <memory>
 #include <vector>
-#include <functional>
-#include <cmath>
 
-template <typename T>
+template<typename T>
 class AnalyticalSolver : public Solver<T> {
 public:
   //! Constructor.
@@ -69,7 +69,7 @@ private:
   using Solver<T>::I_ptr;
   using Solver<T>::xmin;
   using Solver<T>::xmax;
-  
+
   //! Analytical solution.
   /*!
    Analytical solution (has to be provided).
@@ -81,57 +81,58 @@ private:
    This member contains the analytical solution evaluated at the same points of
    numerical evaluation and contains also absolute and relative error.
    */
-  std::vector<std::tuple<T,T,T>> analytical_solution;
+  std::vector<std::tuple<T, T, T>> analytical_solution;
 };
 
-template <typename T>
+template<typename T>
 AnalyticalSolver<T>::AnalyticalSolver(T y0_,
-                                   double xmin_,
-                                   double xmax_,
-                                   std::unique_ptr<Integrator<T>> I_,
-                                   std::function<T(double)> s_)
-    : Solver<T>(y0_, xmin_, xmax_, std::move(I_)), s(s_) {}
-    
-template <typename T>
+                                      double xmin_,
+                                      double xmax_,
+                                      std::unique_ptr<Integrator<T>> I_,
+                                      std::function<T(double)> s_)
+  : Solver<T>(y0_, xmin_, xmax_, std::move(I_)), s(s_) {}
+
+template<typename T>
 void AnalyticalSolver<T>::solve() {
   double dx(I_ptr->get_dx());
-  
+
   double xn(xmin);
   T yn(y0);
-  
+
   // gcc4.8
   // std::array<double,2> step({0,0});
   // std::array<double,3> step_a({0,0,0});
-  
+
   std::pair<double, T> step;
   std::tuple<T, T, T> step_a;
-  
+
   while (xn <= xmax) {
     // gcc4.8
     // step = {xn, yn};
     // step_a ={s(xn), std::abs(yn-s(xn)), std::abs( (yn-s(xn))/s(xn) )};
-    
+
     step = std::make_pair(xn, yn);
-    step_a = std::make_tuple(s(xn), std::abs(yn - s(xn)), std::abs((yn - s(xn)) / s(xn)));
-    
+    step_a = std::make_tuple(
+        s(xn), std::abs(yn - s(xn)), std::abs((yn - s(xn)) / s(xn)));
+
     solution.push_back(step);
     analytical_solution.push_back(step_a);
-    
+
     yn = I_ptr->step(xn, yn);
-    
+
     xn += dx;
   }
 }
 
 template<typename T>
-std::vector<std::tuple<T,T,T>>
+std::vector<std::tuple<T, T, T>>
 AnalyticalSolver<T>::get_analytical_solution() const {
-  if (!Solver<T>::is_solved()) // If solution is not solved, analytical_solution is empty
-    // too
+  if (!Solver<T>::is_solved()) // If solution is not solved, analytical_solution
+                               // is empty too
   {
     throw Unsolved(); // Throw Unsolved exception
   }
-  
+
   return analytical_solution;
 }
 

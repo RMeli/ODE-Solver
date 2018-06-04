@@ -54,8 +54,8 @@ public:
    obviosuly corresponds to xn+dx.
    */
   T step(double xn, T yn);
-  
- private:
+
+private:
   using Integrator<T>::ODE;
   using Integrator<T>::dx;
   using ImplicitIntegrator<T>::dODE;
@@ -63,22 +63,21 @@ public:
   using ImplicitIntegrator<T>::yold;
 };
 
-
 template<typename T>
 ImplicitEuler<T>::ImplicitEuler(std::function<T(double, T)> ODE_,
-                             double dx_,
-                             std::function<T(double, T)> dODE_)
-    : ImplicitIntegrator<T>(ODE_, dx_, dODE_) {}
-    
+                                double dx_,
+                                std::function<T(double, T)> dODE_)
+  : ImplicitIntegrator<T>(ODE_, dx_, dODE_) {}
+
 template<typename T>
 T ImplicitEuler<T>::step(double xn, T yn) {
   xnew = xn + dx;
   yold = yn;
-  
+
   NewtonMethod<T> NM(yold,
-                          [this](T yn) { return yn - dx * ODE(xnew, yn) - yold; },
-                          [this](T yn) { return 1 - dx * dODE(xnew, yn); });
-  
+                     [this](T yn) { return yn - dx * ODE(xnew, yn) - yold; },
+                     [this](T yn) { return 1 - dx * dODE(xnew, yn); });
+
   return NM.solve();
 }
 
