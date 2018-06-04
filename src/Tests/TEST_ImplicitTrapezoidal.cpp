@@ -29,7 +29,7 @@ int main() {
   double xn(0);
   double yn(1);
 
-  ImplicitTrapezoidal IT(f, dx, df);
+  ImplicitTrapezoidal<double> IT(f, dx, df);
 
   while (xn < xmax) {
     std::cout << xn << ' ' << yn << std::endl;

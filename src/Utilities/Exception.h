@@ -1,3 +1,6 @@
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
+
 #include <exception>
 #include <functional>
 
@@ -27,3 +30,5 @@ public:
    */
   const char* what() const noexcept { return "Undefined equation to solve."; }
 };
+
+#endif

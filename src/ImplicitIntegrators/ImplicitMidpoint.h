@@ -22,35 +22,66 @@
 
 #include "../Integrators/ImplicitIntegrator.h"
 
+#include "../NumericalMethods/NewtonMethod.h"
+
+
 #include <functional>
 
 //! ImplicitMidpoint class.
 /*!
  Perform one step of the implicit midpoint method.
  */
-class ImplicitMidpoint : public ImplicitIntegrator {
+template <typename T>
+class ImplicitMidpoint : public ImplicitIntegrator<T> {
 public:
   //! Constructor.
   /*!
    Take the ODE to integrate, its derivative and the step lenght as arguemnts.
-
-   The constructor also create an instance of the IEFunction class, by using the
-   this pointer to generate a link between the IEFunction class and himself.
    */
-  ImplicitMidpoint(std::function<double(double, double)> ODE_,
+  ImplicitMidpoint(std::function<T(double, T)> ODE_,
                    double dx_,
-                   std::function<double(double, double)> dODE_);
+                   std::function<T(double, T)> dODE_);
 
-  ImplicitMidpoint(const ImplicitMidpoint&) = delete;
-  ImplicitMidpoint(const ImplicitMidpoint&&) = delete;
-  ImplicitMidpoint& operator=(const ImplicitMidpoint&) = delete;
+  ImplicitMidpoint(const ImplicitMidpoint<T>&) = delete;
+  ImplicitMidpoint(const ImplicitMidpoint<T>&&) = delete;
+  ImplicitMidpoint& operator=(const ImplicitMidpoint<T>&) = delete;
 
   //! Integrating function.
   /*!
    Perform a step of lenght dx starting from xn and yn, calculating y(n+1) that
    obviosuly corresponds to xn+dx.
    */
-  double step(double xn, double yn);
+  T step(double xn, T yn);
+ 
+ private:
+  using Integrator<T>::ODE;
+  using Integrator<T>::dx;
+  using ImplicitIntegrator<T>::dODE;
+  using ImplicitIntegrator<T>::xnew;
+  using ImplicitIntegrator<T>::yold;
 };
+
+
+template <typename T>
+ImplicitMidpoint<T>::ImplicitMidpoint(std::function<T(double, T)> ODE_,
+                                   double dx_,
+                                   std::function<T(double, T)> dODE_)
+    : ImplicitIntegrator<T>(ODE_, dx_, dODE_) {}
+    
+template <typename T>
+T ImplicitMidpoint<T>::step(double xn, T yn) {
+  xnew = xn + 0.5 * dx;
+  yold = yn;
+  
+  NewtonMethod<T> NM(yold,
+                          [this](T yn) {
+                            return yn - yold - dx * ODE(xnew, 0.5 * (yold + yn));
+                          },
+                          [this](T yn) {
+                            return 1 - dx * dODE(xnew, 0.5 * (yold + yn)) * 0.5;
+                          });
+  
+  return NM.solve();
+}
 
 #endif

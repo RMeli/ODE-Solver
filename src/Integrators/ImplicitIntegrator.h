@@ -31,19 +31,20 @@
  an implicit method. For an implicit method we have to solve a nonlinear
  function at each steps, therefore also the second derivative is needed.
  */
-class ImplicitIntegrator : public Integrator {
+template <typename T>
+class ImplicitIntegrator : public Integrator<T> {
 public:
   //! Constructor.
   /*!
    Take the ODE to integrate, its derivative and the step lenght as arguemnts.
    */
-  ImplicitIntegrator(std::function<double(double, double)> ODE_,
+  ImplicitIntegrator(std::function<T(double, T)> ODE_,
                      double dx_,
-                     std::function<double(double, double)> dODE_);
+                     std::function<T(double, T)> dODE_);
 
-  ImplicitIntegrator(const ImplicitIntegrator&) = delete;
-  ImplicitIntegrator(const ImplicitIntegrator&&) = delete;
-  ImplicitIntegrator& operator=(const ImplicitIntegrator&) = delete;
+  ImplicitIntegrator(const ImplicitIntegrator<T>&) = delete;
+  ImplicitIntegrator(const ImplicitIntegrator<T>&&) = delete;
+  ImplicitIntegrator& operator=(const ImplicitIntegrator<T>&) = delete;
 
 protected:
   //! Derivative of the ODE.
@@ -52,7 +53,7 @@ protected:
    an implicit method that use NewtonMethod class to solve the nonlinear
    function defining the scheme.
    */
-  std::function<double(double, double)> dODE;
+  std::function<T(double, T)> dODE;
 
   //! xnew = xold + dx.
   /*!
@@ -65,7 +66,14 @@ protected:
    xold is needed because must be accessible inside NLF and dNLF, on order to
    perform the NewtonMethod to solve the step with a one-variable function.
    */
-  double yold = 0;
+  T yold = 0;
 };
+
+template <typename T>
+ImplicitIntegrator<T>::ImplicitIntegrator(
+    std::function<T(double, T)> ODE_,
+    double dx_,
+    std::function<T(double, T)> dODE_)
+    : Integrator<T>(ODE_, dx_), dODE(dODE_) {}
 
 #endif

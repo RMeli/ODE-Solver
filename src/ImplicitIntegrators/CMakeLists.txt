@@ -1,8 +1,8 @@
-add_library(ImplicitEuler ImplicitEuler.cpp)
-target_include_directories (ImplicitEuler PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(ImplicitEuler INTERFACE)
+target_include_directories (ImplicitEuler INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(ImplicitMidpoint ImplicitMidpoint.cpp)
-target_include_directories (ImplicitMidpoint PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(ImplicitMidpoint INTERFACE)
+target_include_directories (ImplicitMidpoint INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(ImplicitTrapezoidal ImplicitTrapezoidal.cpp)
-target_include_directories (ImplicitTrapezoidal PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(ImplicitTrapezoidal INTERFACE)
+target_include_directories (ImplicitTrapezoidal INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

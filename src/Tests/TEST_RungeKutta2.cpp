@@ -26,7 +26,7 @@ int main() {
   double xmax(5);
   double dx(0.5);
 
-  RungeKutta2 RK2(f, dx);
+  RungeKutta2<double> RK2(f, dx);
 
   double xn(0);
   double yn(1);

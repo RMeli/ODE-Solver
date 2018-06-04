@@ -22,11 +22,14 @@
 
 #include "../Integrators/Integrator.h"
 
+#include "../Utilities/Exception.h"
+
 #include <array>
 #include <iostream>
 #include <memory>
 #include <vector>
 
+template <typename T>
 class Solver {
 public:
   //! Constructor.
@@ -34,11 +37,11 @@ public:
    Take the initial value y0=y(xmin), the interval of integration and an
    Integrator.
    */
-  Solver(double y0, double xmin_, double xmax_, std::unique_ptr<Integrator> I_);
+  Solver(T y0, double xmin_, double xmax_, std::unique_ptr<Integrator<T>> I_);
 
-  Solver(const Solver&) = delete;
-  Solver(const Solver&&) = delete;
-  Solver& operator=(const Solver&) = delete;
+  Solver(const Solver<T>&) = delete;
+  Solver(const Solver<T>&&) = delete;
+  Solver& operator=(const Solver<T>&) = delete;
 
   //! Check if the problem has been solved.
   /*!
@@ -59,7 +62,7 @@ public:
    Return the solution as a vector of bi dimensional arrays. Each array contains
    the points (xn,yn)
    */
-  std::vector<std::array<double, 2>> get_solution() const;
+  std::vector<std::pair<double,T>> get_solution() const;
 
   //! Get solution.
   /*!
@@ -74,13 +77,13 @@ protected:
    Solution stored as a vector of bi-dimansional array corresponding to the
    points (xn,yn)
    */
-  std::vector<std::array<double, 2>> solution;
+  std::vector<std::pair<double,T>> solution;
 
   //! Initial condition.
   /*!
    Initial condition of the ODE: y0=y(xmin)
    */
-  double y0;
+  T y0;
 
   //! x min
   /*!
@@ -99,7 +102,56 @@ protected:
    Integrator. The solver applay this integrator starting from the given initial
    condition on the interval [xmin,xmax].
    */
-  std::unique_ptr<Integrator> I_ptr;
+  std::unique_ptr<Integrator<T>> I_ptr;
 };
+
+template <typename T>
+Solver<T>::Solver(T y0_,
+               double xmin_,
+               double xmax_,
+               std::unique_ptr<Integrator<T>> I_)
+    : y0(y0_), xmin(xmin_), xmax(xmax_), I_ptr(std::move(I_)) {}
+
+template <typename T>
+void Solver<T>::solve() {
+  double dx(I_ptr->get_dx());
+  
+  double xn(xmin);
+  T yn(y0);
+  
+  std::pair<double, T> step;
+  
+  while (xn <= xmax) {
+    step.first = xn;
+    step.second = yn;
+    
+    solution.push_back(step);
+    
+    yn = I_ptr->step(xn, yn);
+    
+    xn += dx;
+  }
+}
+
+template <typename T>
+bool Solver<T>::is_solved() const {
+  return !solution.empty();
+}
+
+template <typename T>
+std::vector<std::pair<double, T>> Solver<T>::get_solution() const {
+  if (!is_solved()) {
+    throw Unsolved(); // Throw Unsolved exception
+  }
+  
+  return solution;
+}
+
+template <typename T>
+void Solver<T>::print(std::ostream& out) const {
+  for (std::pair<double, T> P : solution) {
+    out << P.first << ' ' << P.second << std::endl;
+  }
+}
 
 #endif

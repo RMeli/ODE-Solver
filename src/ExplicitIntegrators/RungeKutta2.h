@@ -26,24 +26,42 @@
 /*!
  Perform one step of the explicit Runge Kutta method of order 2.
  */
-class RungeKutta2 : public ExplicitIntegrator {
+template <typename T>
+class RungeKutta2 : public ExplicitIntegrator<T> {
 public:
   //! Constructor.
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  RungeKutta2(std::function<double(double, double)> ODE_, double dx_);
+  RungeKutta2(std::function<T(double, T)> ODE_, double dx_);
 
-  RungeKutta2(const RungeKutta2&) = delete;
-  RungeKutta2(const RungeKutta2&&) = delete;
-  RungeKutta2& operator=(const RungeKutta2&) = delete;
+  RungeKutta2(const RungeKutta2<T>&) = delete;
+  RungeKutta2(const RungeKutta2<T>&&) = delete;
+  RungeKutta2& operator=(const RungeKutta2<T>&) = delete;
 
   //! Integrating function.
   /*!
    Perform a step of lenght dx starting from xn and yn, calculating y(n+1) that
    obviosuly corresponds to xn+dx.
    */
-  double step(double xn, double yn);
+  T step(double xn, T yn);
+  
+ private:
+  
+  using Integrator<T>::ODE;
+  using Integrator<T>::dx;
 };
+
+template<typename T>
+RungeKutta2<T>::RungeKutta2(std::function<T(double, T)> ODE_, double dx_)
+    : ExplicitIntegrator<T>(ODE_, dx_) {}
+    
+template<typename T>
+T RungeKutta2<T>::step(double xn, T yn) {
+  T k1(ODE(xn, yn));
+  T k2(ODE(xn + dx, yn + dx * k1));
+  
+  return yn + dx / 2. * (k1 + k2);
+}
 
 #endif

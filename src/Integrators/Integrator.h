@@ -27,41 +27,42 @@
  ExplicitIntegrator class is a virtual class where Implicit and Explicit
  Integrators derive
  */
+template <typename T>
 class Integrator {
 public:
   //! Constructor.
   /*!
-   Take the ODE to integrate and the step lenght as arguemnts.
+   Take the ODE to integrate and the step length as arguments.
    */
-  Integrator(std::function<double(double, double)> ODE_, double dx_);
+  Integrator(std::function<T(double, T)> ODE_, double dx_);
 
-  Integrator(const Integrator&) = delete;
-  Integrator(const Integrator&&) = delete;
-  Integrator& operator=(const Integrator&) = delete;
+  Integrator(const Integrator<T>&) = delete;
+  Integrator(const Integrator<T>&&) = delete;
+  Integrator& operator=(const Integrator<T>&) = delete;
 
   //! Step lenght.
   /*!
-   This function returns the step lenght.
+   This function returns the step length.
    */
   double get_dx() const;
 
   //! Integrating function.
   /*!
-   Perform a step of lenght dx starting from xn and yn, calculating y(n+1) that
-   obviosuly corresponds to xn+dx. This function makes this class a pure virtual
+   Perform a step of length dx starting from xn and yn, calculating y(n+1) that
+   obviously corresponds to xn+dx. This function makes this class a pure virtual
    class and it is implemented at the level of derived class (that code
    effectively different integrators).
 
    This pure virtual function cannot be declared as a const function because
-   ImplicitIntegrators need to modify some internal attibutes.
+   ImplicitIntegrators need to modify some internal attributes.
    */
-  virtual double step(double xn, double yn) = 0;
+  virtual T step(double xn, T yn) = 0;
 
   //! Destructor.
   /*!
-   Virtual classes needs virtual destructor in order to be destroied properly.
+   Virtual classes needs virtual destructor in order to be destroyed properly.
    */
-  virtual ~Integrator();
+  virtual ~Integrator() {};
 
 protected:
   //! ODE.
@@ -69,10 +70,19 @@ protected:
    This function effectively define the ODE to solve. Is the function f(x,y)
    that defines the equation y'=f(x,y).
    */
-  std::function<double(double, double)> ODE;
+  std::function<T(double, T)> ODE;
 
-  //! Step lenght.
+  //! Step length.
   double dx;
 };
+
+template <typename T>
+Integrator<T>::Integrator(std::function<T(double, T)> ODE_, double dx_)
+    : ODE(ODE_), dx(dx_) {}
+
+template <typename T>
+double Integrator<T>::get_dx() const {
+  return dx;
+}
 
 #endif

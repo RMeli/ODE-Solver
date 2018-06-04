@@ -29,17 +29,24 @@
  ExplicitIntegrator class is a virtual class that compute an integration step
  (vistual function) for a given ODE (function pointer) of lenght step dx.
  */
-class ExplicitIntegrator : public Integrator {
+template <typename T>
+class ExplicitIntegrator : public Integrator<T> {
 public:
   //! Constructor.
   /*!
    Take the ODE to integrate and the step lenght as arguemnts.
    */
-  ExplicitIntegrator(std::function<double(double, double)> ODE_, double dx_);
+  ExplicitIntegrator(std::function<T(double, T)> ODE_, double dx_);
 
-  ExplicitIntegrator(const ExplicitIntegrator&) = delete;
-  ExplicitIntegrator(const ExplicitIntegrator&&) = delete;
-  ExplicitIntegrator& operator=(const ExplicitIntegrator&) = delete;
+  ExplicitIntegrator(const ExplicitIntegrator<T>&) = delete;
+  ExplicitIntegrator(const ExplicitIntegrator<T>&&) = delete;
+  ExplicitIntegrator& operator=(const ExplicitIntegrator<T>&) = delete;
 };
+
+template<typename T>
+ExplicitIntegrator<T>::ExplicitIntegrator(
+    std::function<T(double, T)> ODE_,
+    double dx_)
+    : Integrator<T>(ODE_, dx_) {}
 
 #endif

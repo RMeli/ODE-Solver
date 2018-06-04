@@ -33,10 +33,11 @@
 #include <memory>
 #include <vector>
 
-void print_solution(std::vector<std::array<double, 2>> sol,
+template <typename T>
+void print_solution(std::vector<std::pair<double, T>> sol,
                     std::ostream& out = std::cout) {
-  for (std::array<double, 2> P : sol) {
-    out << P[0] << ' ' << P[1] << std::endl;
+  for (std::pair<double, T> P : sol) {
+    out << P.first << ' ' << P.second << std::endl;
   }
 }
 
@@ -46,17 +47,17 @@ int main() {
   double xmax(5);
   double dx(0.5);
 
-  Solver ES(y0, xmin, xmax, std::make_unique<EulerIntegrator>(f, dx));
-  Solver RK4S(y0, xmin, xmax, std::make_unique<RungeKutta4>(f, dx));
-  Solver RK2S(y0, xmin, xmax, std::make_unique<RungeKutta2>(f, dx));
+  Solver<double> ES(y0, xmin, xmax, std::make_unique<EulerIntegrator<double>>(f, dx));
+  Solver<double> RK4S(y0, xmin, xmax, std::make_unique<RungeKutta4<double>>(f, dx));
+  Solver<double> RK2S(y0, xmin, xmax, std::make_unique<RungeKutta2<double>>(f, dx));
 
   ES.solve();
   RK2S.solve();
   RK4S.solve();
 
-  Solver IES(y0, xmin, xmax, std::make_unique<ImplicitEuler>(f, dx, df));
-  Solver IMS(y0, xmin, xmax, std::make_unique<ImplicitMidpoint>(f, dx, df));
-  Solver ITS(y0, xmin, xmax, std::make_unique<ImplicitTrapezoidal>(f, dx, df));
+  Solver<double> IES(y0, xmin, xmax, std::make_unique<ImplicitEuler<double>>(f, dx, df));
+  Solver<double> IMS(y0, xmin, xmax, std::make_unique<ImplicitMidpoint<double>>(f, dx, df));
+  Solver<double> ITS(y0, xmin, xmax, std::make_unique<ImplicitTrapezoidal<double>>(f, dx, df));
 
   IES.solve();
   IMS.solve();

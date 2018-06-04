@@ -29,7 +29,7 @@ int main() {
   double xn(0);
   double yn(1);
 
-  ImplicitMidpoint IM(f, dx, df);
+  ImplicitMidpoint<double> IM(f, dx, df);
 
   while (xn < xmax) {
     std::cout << xn << ' ' << yn << std::endl;

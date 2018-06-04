@@ -29,7 +29,7 @@ int main() {
   double xn(0);
   double yn(1);
 
-  ImplicitEuler IE(f, dx, df);
+  ImplicitEuler<double> IE(f, dx, df);
 
   while (xn < xmax) {
     std::cout << xn << ' ' << yn << std::endl;
