@@ -3,47 +3,43 @@ language: cpp
 matrix:
   include:
     - os: osx
-      osx_image: xcode9.3
-      compiler: clang
-      env:
-      - MATRIX_EVAL="CC=clang && CXX=clang++"
+      osx_image: xcode11.2
+      addons:
+        homebrew:
+          packages:
+          - cmake
+          update: true
 
-    - os: osx
-      osx_image: xcode9.2
-      compiler: clang
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - cmake
+            - g++-7
+          update: true
       env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - CC=gcc-7
+        - CXX=g++-7
 
-    - os: osx
-      osx_image: xcode8.3
-      compiler: clang
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - cmake
+            - g++-8
+          update: true
       env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-
-    - os: osx
-      osx_image: xcode9.2
-      compiler: gcc
-      env:
-        - MATRIX_EVAL="brew install gcc@8 && CC=gcc-8 && CXX=g++-8"
-
-    - os: osx
-      osx_image: xcode9.2
-      compiler: gcc
-      env:
-        - MATRIX_EVAL="brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
-
-    - os: osx
-      osx_image: xcode8.3
-      compiler: gcc
-      env:
-        - MATRIX_EVAL="brew install gcc@6 && CC=gcc-6 && CXX=g++-6"
+        - CC=gcc-8
+        - CXX=g++-8
 
 before_install:
-  - bash .travis/before_install.sh
   - eval "${MATRIX_EVAL}"
-
-install:
-  - bash .travis/install.sh
 
 script:
   - bash .travis/build.sh
